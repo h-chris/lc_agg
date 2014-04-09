@@ -19,5 +19,4 @@ doc/
 .idea
 .secret
 config/twitter_vars.rb
-config/intializers/twitter.rb
 log.txt
