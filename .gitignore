@@ -20,3 +20,4 @@ doc/
 .secret
 config/twitter_vars.rb
 log.txt
+structure
