@@ -35,7 +35,6 @@ class Tweet < ActiveRecord::Base
     end
   end
 
-
   def parse_media(text, media, html_hash)
     # make sure link is https
     url = media[0][:media_url].to_s.index(/https:\/\//) == nil ?

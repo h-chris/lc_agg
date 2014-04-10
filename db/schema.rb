@@ -11,10 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140410031557) do
+ActiveRecord::Schema.define(version: 20140410090658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "reddit_posts", force: true do |t|
+    t.string   "title"
+    t.string   "author"
+    t.string   "url"
+    t.string   "subreddit"
+    t.string   "permalink"
+    t.string   "is_self"
+    t.string   "posted_at"
+    t.string   "thumbnail"
+    t.string   "domain"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "text"
+  end
 
   create_table "tweets", force: true do |t|
     t.string   "screen_name"
