@@ -1,19 +1,9 @@
 <h1>Pages#latest</h1>
 <p>Find me in app/views/pages/latest.html.erb</p>
 
-<% @client.user_timeline("launchcodestl", count: 3).each do |tweet| %>
-  <div>
-    <% if !tweet.retweeted_status.nil? %>
-        <img src="<%= @client.status(tweet.retweeted_status).user.profile_image_url %>", 
-          alt="@<%= @client.status(tweet.retweeted_status).user.screen_name %>"/>
-        RT: @<%= @client.status(tweet.retweeted_status).user.screen_name %>
-             <%= @client.status(tweet.retweeted_status).text %>
-    <% else %>
-      <img src="<%= tweet.user.profile_image_url %>", 
-        alt="@<%= tweet.user.screen_name %>"/>
-      <%= tweet.text %><br/>
-    <% end %>
-    <br/>
-  </div>
+<% @tweets.each do |tweet| %>
+  <%= image_tag (tweet.profile_image_url), alt: "profile_image" %>
+  <%= link_to tweet.name, "http://twitter.com/" + tweet.screen_name %>
+  @<%= tweet.screen_name %><br/><br/>
+  <%= raw tweet.text %>
 <% end %>
-raw json: <br/>
