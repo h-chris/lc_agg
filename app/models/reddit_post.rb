@@ -48,7 +48,7 @@ class RedditPost < ActiveRecord::Base
     listing.thumb     = obj['thumbnail']
     listing.domain    = obj['domain']
     listing.name      = obj['name']
-    listing.text      = obj['selftext']
+    listing.text      = listing.parse_urls(obj['selftext'])
     listing.save!
   end
 end

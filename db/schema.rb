@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140410090658) do
+ActiveRecord::Schema.define(version: 20140410120721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 20140410090658) do
     t.string   "url"
     t.string   "subreddit"
     t.string   "permalink"
-    t.string   "is_self"
     t.string   "posted_at"
     t.string   "thumbnail"
     t.string   "domain"
@@ -30,6 +29,7 @@ ActiveRecord::Schema.define(version: 20140410090658) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "text"
+    t.boolean  "is_self"
   end
 
   create_table "tweets", force: true do |t|
