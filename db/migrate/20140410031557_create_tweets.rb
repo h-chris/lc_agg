@@ -7,8 +7,6 @@ class CreateTweets < ActiveRecord::Migration
       t.string :id_str
       t.string :retweeted_status
       t.string :profile_image_url
-      t.string :media_url
-      t.string :media_display_url
       t.text :text
 
       t.timestamps

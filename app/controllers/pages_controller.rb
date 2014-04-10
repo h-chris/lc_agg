@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def latest
-    @client = $client
+    @tweets = Tweet.all
   end
 
   def reddit

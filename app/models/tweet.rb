@@ -1,13 +1,11 @@
 class Tweet < ActiveRecord::Base
 
-  # id_str
   # screen_name
   # name
   # tweeted_at
+  # id_str
   # retweeted_status
   # profile_image_url
-  # media_url
-  # media_display_url
   # text
 
   def parse_full_text(text, urls, media)
@@ -17,7 +15,9 @@ class Tweet < ActiveRecord::Base
       href_end: "</a>",
       twitter_url: "https://twitter.com/",
       hash_pre: "search?q=%23",
-      hash_post: "src=hash"
+      hash_post: "src=hash",
+      span_beg: "<span class=\"athash\">",
+      span_end: "</span>"
     }
 
     # check for urls && media
@@ -35,11 +35,6 @@ class Tweet < ActiveRecord::Base
     end
   end
 
-  def parse_urls_and_media(text, urls, media, html_hash)
-    p_media = parse_media(text, media, html_hash)
-    p_urls = parse_urls(p_media, urls, html_hash)
-    return parse_text(p_urls, html_hash)
-  end
 
   def parse_media(text, media, html_hash)
     # make sure link is https
@@ -92,16 +87,20 @@ class Tweet < ActiveRecord::Base
 
   def parse_text(text, html_hash)
     text_arr = text.split
-    retweet = text_arr[0] === "RT" ? true : false
   
     text_arr.each do |word|
-      # first link "RT @screen_name:"
-      link_text = retweet ? word.slice(1..word.length - 2) : 
-                            word.slice(1..word.length - 1)
+      # handle punctuation
+      if word.index(/[^a-zA-Z0-9_]/) == word.length - 1
+        link_text = word.slice(1..word.length - 2)  
+        punc = word.slice(1..word.length - 1)
+      else
+        link_text = word.slice(1..word.length - 1)  
+        punc = ""
+      end
 
       symbol = word.slice(0)
 
-      if word.index(/[@,#]/) == 0
+      if word.index(/[@#]/) == 0
         case symbol
         when "@"
           hash_pre  = ""
@@ -111,15 +110,14 @@ class Tweet < ActiveRecord::Base
           hash_post = html_hash[:hash_post]
         end
 
-        text_arr.fill(symbol + 
-                     html_hash[:href_beg] + html_hash[:twitter_url] + 
-                     hash_pre + link_text + hash_post + 
-                     html_hash[:href_mid] + 
-                     link_text + 
-                     html_hash[:href_end], text_arr.index(word), 1)
-
-        # treat rest of @ and # normally
-        retweet = false
+        text_arr.fill(html_hash[:span_beg] +
+                      symbol + 
+                      html_hash[:href_beg] + html_hash[:twitter_url] + 
+                      hash_pre + link_text + hash_post + 
+                      html_hash[:href_mid] + 
+                      link_text + 
+                      html_hash[:href_end] +
+                      html_hash[:span_end] + punc, text_arr.index(word), 1)
 
       end # end if
     end # end each
