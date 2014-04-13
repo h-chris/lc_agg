@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   def latest
-    @tweets = Tweet.all
+    @tweets  = Tweet.all
+    @reddits = RedditPost.all
   end
 
   def reddit
