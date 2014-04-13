@@ -3,4 +3,10 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  def markdown(text)
+    Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, 
+                            tables: true).render(text)
+  end
+
+  helper_method :markdown
 end

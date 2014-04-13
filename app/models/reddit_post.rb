@@ -1,4 +1,5 @@
 class RedditPost < ActiveRecord::Base
+  # var names
   # title
   # author
   # url
@@ -13,27 +14,48 @@ class RedditPost < ActiveRecord::Base
 
   # data = results['data']['children'][0]['data']
 
-  def parse_urls(text)
-    html_hash = {
-      href_beg: "<a href=\"",
-      href_mid: "\" target=\"_blank\">",
-      href_end: "</a>",
-    }
+  def update_r_db
+    # get json data to use
+    results = parseJSON
 
-    text_arr = text.split
+    # check that hash isn't nil
+    return nil if results.nil?
 
-    text_arr.each do |word|
-      if word.index(/http:\/\//) == 0
-        text_arr.fill(html_hash[:href_beg] + 
-                      word + 
-                      html_hash[:href_mid] + 
-                      word + 
-                      html_hash[:href_end], text_arr.index(word), 1)
+    data = results['data']['children']
 
-      end
-    end # end each
+    # make sure that there is something to update
+    (0..(data.count - 1)).reverse_each do |i|
+      obj = data[i]['data']
+      insert_listing(obj) unless obj.nil?
+    end # end loop
+  end
 
-    return text_arr.join(' ')
+  def parseJSON
+
+    # reddit url fragments
+    reddit = "http://www.reddit.com/r/LaunchCodeCS50x/new/.json?before="
+    last = RedditPost.last.name
+
+    # url to use
+    uri = URI.parse(reddit + last)
+
+    # create http request from url
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Get.new(uri.request_uri)
+
+    # store response data
+    response = http.request(request)
+
+    # store parsed data if request successful
+    if response.code == "200"
+      result = JSON.parse(response.body)
+    # else set to nil
+    else
+      result = nil
+    end
+
+    # return object
+    return result
   end
 
   def insert_listing(obj)
@@ -45,10 +67,10 @@ class RedditPost < ActiveRecord::Base
     listing.permalink = obj['permalink']
     listing.is_self   = obj['is_self']
     listing.posted_at = Time.at(obj['created_utc']).utc
-    listing.thumb     = obj['thumbnail']
+    listing.thumbnail = obj['thumbnail']
     listing.domain    = obj['domain']
     listing.name      = obj['name']
-    listing.text      = listing.parse_urls(obj['selftext'])
+    listing.text      = obj['selftext']
     listing.save!
   end
 end
