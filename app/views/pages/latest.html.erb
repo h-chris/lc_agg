@@ -1,14 +1,25 @@
 <h1>Pages#latest</h1>
 <p>Find me in app/views/pages/latest.html.erb</p>
 
-<% @tweets.each do |tweet| %>
-  <%= image_tag (tweet.profile_image_url), alt: "profile_image" %>
-  <%= link_to tweet.name, "http://twitter.com/" + tweet.screen_name %>
-  @<%= tweet.screen_name %><br/><br/>
+<% @tweets.reverse_each do |tweet| %>
+  <% if !tweet.retweeted_status.empty? %>
+    Retweeted by: @<%= link_to tweet.name, "http://twitter.com/" + 
+                               tweet.screen_name %><br/>
+    <%= image_tag (tweet.r_profile_image_url), alt: "profile_image" %>
+    <%= link_to tweet.r_name, "http://twitter.com/" + 
+                                  tweet.r_screen_name %>
+    @<%= link_to tweet.r_screen_name, "http://twitter.com/" + 
+                                  tweet.r_screen_name  %>
+    <br/><br/>
+  <% else %>
+    <%= image_tag (tweet.profile_image_url), alt: "profile_image" %>
+    <%= link_to tweet.name, "http://twitter.com/" + tweet.screen_name %>
+    @<%= tweet.screen_name %><br/><br/>
+  <% end %>
   <%= raw tweet.text %><br/><br/>
 <% end %>
 
-<% @reddits.each do |post| %>
+<% @reddits.reverse_each do |post| %>
   <h2><%= post.title %></h2><br/>
   by <%= post.author %> at <%= post.posted_at %><br/><br/>
   <%= markdown(post.text).html_safe unless post.text.nil? %><br/><br/>
