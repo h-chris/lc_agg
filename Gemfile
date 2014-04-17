@@ -10,6 +10,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'twitter'
 gem 'redcarpet'
+gem 'kaminari'
 
 group :doc do
   gem 'sdoc', require: false
