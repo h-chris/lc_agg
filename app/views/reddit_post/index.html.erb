@@ -1,0 +1,34 @@
+<%= render 'layouts/header' %>
+
+<div class="content">
+  <%= paginate @reddits %>
+  <% @reddits.each do |post| %>
+    <div class="post">
+      <%= raw post.prep_reddit_post(post) %>
+      <% if !post.text.empty? %>
+        <div class="post_content">
+          <%= markdown(post.text).html_safe unless post.text.nil? %>
+        </div>
+      <% else %>
+        <br/>
+      <% end %>
+      <div class="post_view_line">
+        <ul>
+          <li>
+            <%= link_to "View", reddit_post_path(post) %>
+          </li>
+          <li> | </li>
+          <li>
+            <%= link_to "View on reddit", 
+                        "http://www.reddit.com#{post.permalink}" %>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="separator"></div>
+  <% end %>
+  <%= paginate @reddits %>
+</div>
+
+<%= render 'layouts/footer' %>

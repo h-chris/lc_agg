@@ -1,0 +1,24 @@
+<%= render 'layouts/header' %>
+
+<div class="content">
+  <div class="post">
+    <%= raw @reddit_post.prep_reddit_post(@reddit_post) %>
+    <% if !@reddit_post.text.empty? %>
+      <div class="post_content">
+        <%= markdown(@reddit_post.text).html_safe unless @reddit_post.text.nil? %>
+      </div>
+    <% else %>
+      <br/>
+    <% end %>
+    <div class="post_view_line">
+      <ul>
+        <li>
+          <%= link_to "View on reddit", 
+                      "http://www.reddit.com#{@reddit_post.permalink}" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<%= render 'layouts/footer' %>

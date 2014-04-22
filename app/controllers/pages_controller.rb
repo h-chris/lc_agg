@@ -3,10 +3,6 @@ class PagesController < ApplicationController
   def latest
   end
 
-  def reddit
-    @reddits = RedditPost.order('id DESC').page params[:page]
-  end
-
   def twitter
     @tweets  = Tweet.order('id DESC').page params[:page]
   end
