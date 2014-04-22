@@ -1,4 +1,6 @@
 class Tweet < ActiveRecord::Base
+  include ActionView::Helpers::DateHelper
+  include ActionView::Helpers::AssetTagHelper
 
   # screen_name
   # name
@@ -10,6 +12,8 @@ class Tweet < ActiveRecord::Base
   # r_name
   # r_profile_image_url
   # text
+
+  paginates_per 25
 
   def update_t_db
     num_tweets = 20
@@ -61,7 +65,7 @@ class Tweet < ActiveRecord::Base
       href_end: "</a>",
       twitter_url: "https://twitter.com/",
       hash_pre: "search?q=%23",
-      hash_post: "src=hash",
+      hash_post: "&src=hash",
       span_beg: "<span class=\"athash\">",
       span_end: "</span>"
     }
@@ -100,6 +104,19 @@ class Tweet < ActiveRecord::Base
                       html_hash[:href_mid] + 
                       link_text + 
                       html_hash[:href_end], text_arr.index(word), 1)
+
+        if media[0][:display_url].index("pic") == 0
+          w = media[0][:sizes][:small][:w]
+          h = media[0][:sizes][:small][:h]
+          aspect_ratio = h / (w * 1.0)
+
+          # tweet width from css
+          width = 500
+          height = width * aspect_ratio
+          pic_html = "<br/><br/><img src=\"#{media[0][:media_url].to_s}\" " +
+                     "width=\"#{width}\" height=\"#{height}\" />"
+          text_arr.push(pic_html)
+        end
       end
     end # end each
 
@@ -139,7 +156,7 @@ class Tweet < ActiveRecord::Base
     text_arr = text.split
   
     text_arr.each do |word|
-      if word.index(/[@#]/) == 0
+      if word.index(/[@#]/) == 0 && word.length > 1
         # handle punctuation and link text
         symbol = word.slice(0)
         link_text = word.slice(/[^@#.,!]\w+/)  
@@ -183,5 +200,19 @@ class Tweet < ActiveRecord::Base
     }
  
     return rt_info
+  end
+
+  def tweet_info(tweet)
+    tweet_hash = {
+      profile_image: tweet.retweeted_status.empty? ? "lc_logo.jpeg" :
+                         tweet.r_profile_image_url,
+      screen_name:   tweet.retweeted_status.empty? ? tweet.screen_name :
+                         tweet.r_screen_name,
+      name:          tweet.retweeted_status.empty? ? tweet.name :
+                         tweet.r_name,
+      id:            tweet.retweeted_status.empty? ? tweet.id_str :
+                         tweet.retweeted_status.to_str
+    }
+    return tweet_hash
   end
 end

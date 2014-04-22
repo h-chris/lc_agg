@@ -8,5 +8,19 @@ class ApplicationController < ActionController::Base
                             tables: true).render(text)
   end
 
-  helper_method :markdown
+  def prep_latest(list)
+    html_out = Array.new
+    list.each do |item|
+      case item.class.to_s 
+      when "RedditPost"
+        html_out.push(item.prep_reddit_post(item))
+      when "Tweet"
+        html_out.push(item.prep_tweet(item))
+      else
+      end
+    end
+    return html_out
+  end
+
+  helper_method :markdown, :prep_latest
 end

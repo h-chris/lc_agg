@@ -9,6 +9,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'twitter'
+gem 'redditkit'
 gem 'redcarpet'
 gem 'kaminari'
 

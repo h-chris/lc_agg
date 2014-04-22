@@ -1,0 +1,11 @@
+<%= render 'layouts/header' %>
+
+<div class="content">
+  <%= form_tag do %>
+    <%= text_field :username, placeholder: "username" %>
+    <%= password_field :password, placeholder: "password" %>
+    <%= submit_tag "Log In" %>
+  <% end %>
+<div>
+
+<%= render 'layouts/footer' %>

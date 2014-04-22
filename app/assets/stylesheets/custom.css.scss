@@ -1,0 +1,333 @@
+/* color vars */
+$header_color:        #069;
+$header_color_top:    #09c;
+$footer_color:        #202020;
+$nav_color_inactive:  #f0f0f0;
+$body_background:     #e8e8e8;
+$content_background:  #f0f0f0;
+$content_color:       #202020;
+$content_shadow:      #000;
+$domain_color:        #787878;
+$twitter_name:        #292f33;
+$twitter_screen_name: #8899a6;
+$twitter_border:      #e1e8ed;
+$twitter_bg:          #fff;
+$twitter_link:        #0084b4;
+$twitter_inactive:    #ddd;
+$twitter_active:      #999;
+
+/* dimension vars */ 
+$logo_height:         100px;
+$logo_width:          300px;
+$footer_height:       100px;
+$content_width:       65%;
+$content_margin_top:  $logo_height;
+$content_padding:     30px;
+$twitter_width:       590px;
+$tweet_width:         500px;
+$tweet_margin_right:  8px;
+$profile_image_width: 48px;
+$rt_icon_width:       16px;
+$rt_icon_margin:      $profile_image_width - $rt_icon_width;
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body { 
+  margin: 0 0 $footer_height;
+  height: 100%;
+  background: $body_background;
+
+  a {
+    text-decoration: none;
+  }
+
+  li {
+    list-style-type: none;
+  }
+}
+
+nav {
+  ul {
+    margin-top: 5px;
+    margin-left: 20px;
+    padding-left: 0;
+  }
+
+  li {
+    display: inline;
+    overflow-x: scroll;
+    padding: 0 20px;
+    font-size: 25px;
+  }
+
+  a {
+    color: $nav_color_inactive;
+    text-shadow: 1px 2px black;
+  }
+}
+
+header {
+  height: $logo_height;
+  width: 100%;
+  background: -webkit-linear-gradient($header_color_top, $header_color);
+  background: -o-linear-gradient($header_color_top, $header_color);
+  background: -moz-linear-gradient($header_color_top, $header_color);
+  background: linear-gradient($header_color_top, $header_color);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: $footer_height;
+  width: 100%;
+  background: $footer_color;
+
+  a {
+    color: $nav_color_inactive;
+    text-shadow: 1px 2px black;
+  }
+}
+
+#nav-logo {
+  margin-right: 50px;
+}
+
+#logo_top {
+  padding-left: 10px;
+  font-size: 30px;
+}
+
+#logo_bottom {
+  font-size: 50px;
+}
+
+.content {
+  margin: $content_margin_top auto 5px;
+  padding: $content_padding;
+  background: $content_background;
+  color: $content_color;
+  width: $content_width;
+
+  ul {
+    padding: 0;
+  }
+}
+
+.pagination {
+  padding: 10px;
+  text-align: center;
+
+  a {
+    color: $content_color;
+    text-shadow: 0 1px $content_shadow;
+  }
+}
+
+.post {
+  margin-bottom: 8px;
+
+  .post_title {
+    font-size: medium;
+    margin-bottom: 1px;
+    margin-right: .4em;
+    
+    a {
+      text-decoration: none;
+    }
+  }
+
+  .post_domain {
+    color: $domain_color;
+    font-size: x-small;
+
+    a {
+      color: $domain_color;
+
+      &:link {
+        text-decoration: none;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .post_byline {
+    a {
+      &:link {
+        text-decoration: none;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .post_content {
+    margin-bottom: 15px;
+    border: 1px solid #369;
+    border-radius: 8px;
+    padding: 0 5px;
+    font-size: small;
+  }
+
+  .post_view_line {
+
+    li {
+      padding-right: 5px; 
+      display: inline;
+
+      a {
+        color: $domain_color;
+        font-weight: bold;
+        font-size: small;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+.separator {
+  border: 1px solid $twitter_border;
+  margin-bottom: 15px;
+}
+
+.tweet, .tweet_content, .tweet_actions {
+  background: $twitter_bg;
+}
+
+.clear {
+  clear: both;
+}
+
+.tweet_heading {
+  background: white;
+  margin: auto;
+  margin-bottom: 28px;
+  padding: 2px;
+  width: 68px;
+}
+
+.tweet {
+  width: $twitter_width;
+  padding: 5px 5px;
+  margin: auto;
+  color: $twitter_active;
+
+  .rt_line {
+    margin-bottom: 5px;
+
+    .rt_icon {
+      margin-left: $rt_icon_margin;
+      margin-right: $tweet_margin_right;
+    }
+
+    a { 
+      color: $twitter_active;
+
+      &:hover {
+        text-decoration: underline;
+        color: $twitter_link;
+      }
+    }
+  }
+  
+  .tweet_content {
+    .tweet_left {
+      float: left;
+      margin-right: $tweet_margin_right;
+      min-height: 95%;
+    }
+
+    .tweet_right {
+      float: right;
+      width: $tweet_width;
+      margin-right: 30px;
+    }
+
+    .profile_image {
+      width: $profile_image_width;
+    }
+
+    .tweet_byline {
+      margin-bottom: 5px;
+
+      .tweet_name {
+        font-weight: bold;
+        color: $twitter_name;
+        &:hover {
+          text-decoration: underline;
+          color: $twitter_link;
+        }
+      }
+
+      .tweet_screen_name {
+        color: $twitter_screen_name;
+        a {
+          &:visited {
+            color: $twitter_screen_name;
+          }
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+
+      .tweet_time {
+        color: $twitter_screen_name;
+
+        a {
+          color: $twitter_screen_name;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    .tweet_text {
+
+      .athash {
+        color: $twitter_link;
+      }
+
+      a {
+        color: $twitter_link;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  ul li {
+    display: inline;
+  }
+
+  .tweet_actions {
+    float: right;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    a {
+      color: $twitter_active;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

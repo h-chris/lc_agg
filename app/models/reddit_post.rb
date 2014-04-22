@@ -1,4 +1,5 @@
 class RedditPost < ActiveRecord::Base
+  include ActionView::Helpers::DateHelper
   # var names
   # title
   # author
@@ -14,9 +15,16 @@ class RedditPost < ActiveRecord::Base
 
   # data = results['data']['children'][0]['data']
 
+  paginates_per 15
+
   def update_r_db
+
+    # reddit url fragments
+    reddit = "http://www.reddit.com/r/LaunchCodeCS50x/new/.json?before="
+    url = reddit + RedditPost.last.name
+    
     # get json data to use
-    results = parseJSON
+    results = parseJSON(url)
 
     # check that hash isn't nil
     return nil if results.nil?
@@ -30,14 +38,10 @@ class RedditPost < ActiveRecord::Base
     end # end loop
   end
 
-  def parseJSON
-
-    # reddit url fragments
-    reddit = "http://www.reddit.com/r/LaunchCodeCS50x/new/.json?before="
-    last = RedditPost.last.name
+  def parseJSON(url)
 
     # url to use
-    uri = URI.parse(reddit + last)
+    uri = URI.parse(url)
 
     # create http request from url
     http = Net::HTTP.new(uri.host, uri.port)
@@ -72,5 +76,35 @@ class RedditPost < ActiveRecord::Base
     listing.name      = obj['name']
     listing.text      = obj['selftext']
     listing.save!
+  end
+
+  def prep_reddit_post(item)
+    r_url = "http://www.reddit.com"
+    domain = r_url + 
+             (item.domain.index("self") == 0 ? "/r/#{item.subreddit}" :
+                                              "/domain/#{item.domain}")
+    time_ago = time_ago_in_words(item.posted_at)
+    author_link = r_url + "/u/#{item.author}"
+    output = 
+    "<div class=\"post\">" +
+      "<span class=\"post_title\">" + 
+        "<a href=\"#{item.url}\">#{item.title}</a>" + 
+      "</span>" +
+      "<span class=\"post_domain\">" +
+        " (<a href=\"#{domain}\">#{item.domain}</a>)" +
+      "</span><br/>" +
+      "<span class=\"post_byline\">" +
+        "submitted #{time_ago} by <a href=\"#{author_link}\">" + 
+                                    item.author +
+                                  "</a>" +
+      "</span><br/>" +
+    "</div>"
+    return output
+  end
+
+  def num_comments(post)
+    url = "http://www.reddit.com" + post.permalink.slice!(-1) + ".json"
+    results = parseJSON(url)
+    return results['data']
   end
 end
