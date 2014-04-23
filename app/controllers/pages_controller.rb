@@ -17,6 +17,6 @@ class PagesController < ApplicationController
   end
 
   def login
-    @reddit = RedditKit::Client.new
+    @user = User.new
   end
 end

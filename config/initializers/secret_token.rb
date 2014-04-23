@@ -9,4 +9,19 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-LcAgg::Application.config.secret_key_base = '3822d1b741a4357766ad3059b77fe296730c21d34f0fc62472c74ca28f23df1e4a277b656babd6c12098b555f63ee2059ee92d0f24c21afcfbb45ac0e919acb9'
+require 'securerandom'
+
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exist?(token_file)
+    # Use the existing token.
+    File.read(token_file).chomp
+  else
+    # Generate a new token and store it in token_file.
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token
+  end
+end
+
+LcAgg::Application.config.secret_key_base = secure_token

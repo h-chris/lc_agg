@@ -103,8 +103,6 @@ class RedditPost < ActiveRecord::Base
   end
 
   def num_comments(post)
-    url = "http://www.reddit.com" + post.permalink.slice!(-1) + ".json"
-    results = parseJSON(url)
-    return results['data']
+    return RedditKit.link(post.name).num_comments.to_s
   end
 end

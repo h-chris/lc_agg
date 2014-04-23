@@ -15,7 +15,8 @@
       <div class="post_view_line">
         <ul>
           <li>
-            <%= link_to "View", reddit_post_path(post) %>
+            <%= link_to "<span id=\"#{post.name}\" class=\"post_comment\"></span>".html_safe + 
+                  " Comments", reddit_post_path(post) %>
           </li>
           <li> | </li>
           <li>
@@ -32,3 +33,4 @@
 </div>
 
 <%= render 'layouts/footer' %>
+<%= javascript_include_tag 'comments' %>
