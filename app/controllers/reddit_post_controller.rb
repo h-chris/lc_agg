@@ -1,7 +1,7 @@
 class RedditPostController < ApplicationController
 
   def index
-    @reddits = RedditPost.order('id DESC').page params[:page]
+    @reddits = RedditPost.order('posted_at DESC').page params[:page]
   end
 
   def show

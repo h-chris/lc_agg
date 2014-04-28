@@ -1,10 +1,10 @@
 class PagesController < ApplicationController
 
   def latest
-  end
-
-  def twitter
-    @tweets  = Tweet.order('id DESC').page params[:page]
+    RedditPost.new.update_r_db
+    Tweet.new.update_t_db
+    @reddits = RedditPost.order('posted_at DESC')
+    @tweets  = Tweet.order('tweeted_at DESC')
   end
 
   def youtube

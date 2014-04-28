@@ -16,7 +16,7 @@ class Tweet < ActiveRecord::Base
   paginates_per 25
 
   def update_t_db
-    num_tweets = 20
+    num_tweets = 200
     last_id    = Tweet.last.id_str.to_i
 
     # make request

@@ -199,6 +199,16 @@ footer {
   }
 }
 
+.post_comment {
+  margin: 5px 1px 1px 2px;
+  border: 1px solid $domain_color;
+  border-radius: 5px;
+
+  .comment_body {
+    padding: 10px;
+  }
+}
+
 .separator {
   border: 1px solid $twitter_border;
   margin-bottom: 15px;
