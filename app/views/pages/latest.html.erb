@@ -1,6 +1,21 @@
 <%= render 'layouts/header' %>
 
 <div class="content">
+  <% @yt.each do |vid| %>
+    <div class="yt_video">
+      <iframe title="YouTube video player" 
+              width="550" 
+              height="413" 
+              <% if vid.domain == "youtu.be" %>
+                src="<%= vid.url.sub("http://youtu.be/", "http://youtube.com/embed/") %>" 
+              <% else %>
+                src="<%= vid.url.sub(/https?:\/\/www\.youtube\.com\/watch\?v=/, "http://youtube.com/embed/") %>" 
+              <% end %>
+              frameborder="0" 
+              allowfullscreen>
+      </iframe>
+    </div>
+  <% end %>
 </div>
 
 <%= render 'layouts/footer' %>

@@ -1,4 +1,4 @@
-/* color vars */
+/*** color vars ***/
 $header_color:        #069;
 $header_color_top:    #09c;
 $footer_color:        #202020;
@@ -6,8 +6,9 @@ $nav_color_inactive:  #f0f0f0;
 $body_background:     #e8e8e8;
 $content_background:  #f0f0f0;
 $content_color:       #202020;
-$content_shadow:      #000;
+$content_shadow:      #202020;
 $domain_color:        #787878;
+
 $twitter_name:        #292f33;
 $twitter_screen_name: #8899a6;
 $twitter_border:      #e1e8ed;
@@ -16,17 +17,20 @@ $twitter_link:        #0084b4;
 $twitter_inactive:    #ddd;
 $twitter_active:      #999;
 
-/* dimension vars */ 
+/*** dimension vars ***/ 
 $logo_height:         100px;
 $logo_width:          300px;
 $footer_height:       100px;
 $content_width:       65%;
-$content_margin_top:  $logo_height;
+$content_min_width:   600px;
+$content_margin_top:  $logo_height + 10px;
 $content_padding:     30px;
+
 $twitter_width:       590px;
 $tweet_width:         500px;
 $tweet_margin_right:  8px;
 $profile_image_width: 48px;
+
 $rt_icon_width:       16px;
 $rt_icon_margin:      $profile_image_width - $rt_icon_width;
 
@@ -35,39 +39,7 @@ html {
   min-height: 100%;
 }
 
-body { 
-  margin: 0 0 $footer_height;
-  height: 100%;
-  background: $body_background;
-
-  a {
-    text-decoration: none;
-  }
-
-  li {
-    list-style-type: none;
-  }
-}
-
-nav {
-  ul {
-    margin-top: 5px;
-    margin-left: 20px;
-    padding-left: 0;
-  }
-
-  li {
-    display: inline;
-    overflow-x: scroll;
-    padding: 0 20px;
-    font-size: 25px;
-  }
-
-  a {
-    color: $nav_color_inactive;
-    text-shadow: 1px 2px black;
-  }
-}
+/*** Header CSS ***/
 
 header {
   height: $logo_height;
@@ -81,17 +53,38 @@ header {
   left: 0;
 }
 
-footer {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: $footer_height;
-  width: 100%;
-  background: $footer_color;
+nav {
+  overflow-x: hidden;
+  width: 960px;
 
-  a {
+  ul {
+    margin-top: 5px;
+    margin-left: 20px;
+    padding-left: 0;
+  }
+
+  li {
+    display: inline;
+    padding: 0 20px;
+    font-size: 25px;
+  }
+
+  a, #username {
     color: $nav_color_inactive;
     text-shadow: 1px 2px black;
+  }
+  
+  #username {
+    float: right;
+    position: absolute;
+    top: 0;
+    right: 5px;
+    padding: 5px;
+    font-size: 14px;
+
+    a {
+      font-weight: bold;
+    }
   }
 }
 
@@ -100,20 +93,62 @@ footer {
 }
 
 #logo_top {
-  padding-left: 10px;
-  font-size: 30px;
+  font-size: 50px;
 }
 
 #logo_bottom {
-  font-size: 50px;
+  padding-left: 18px;
+  font-size: 30px;
+}
+
+/*** Body CSS ***/
+
+body { 
+  margin: 0 0 $footer_height;
+  height: 100%;
+  background: $body_background;
+
+  textarea {
+    width: 500px;
+    height: 100px;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  li {
+    list-style-type: none;
+  }
+
+  form {
+    #login_form {
+      width: 95%;
+      min-width: $content_min_width - 10px;
+      margin: auto;
+
+      h2 {
+        color: $content_color;
+      }
+
+      input {
+        margin: 5px auto;
+        padding: 3px;
+        height: 35px;
+        font-size: 25px;
+      }
+    }
+  }
 }
 
 .content {
   margin: $content_margin_top auto 5px;
   padding: $content_padding;
-  background: $content_background;
+  background: white;
   color: $content_color;
   width: $content_width;
+  min-width: $content_min_width;
+  box-shadow: 2px 2px 5px $content_shadow;
 
   ul {
     padding: 0;
@@ -122,11 +157,45 @@ footer {
 
 .pagination {
   padding: 10px;
+  width: $content_width;
+  margin: auto;
   text-align: center;
 
   a {
     color: $content_color;
     text-shadow: 0 1px $content_shadow;
+  }
+}
+.yt_video {
+  margin: auto;
+  text-align: center;
+}
+
+.separator {
+  border: 1px solid $twitter_border;
+  margin-bottom: 15px;
+}
+
+.clear {
+  clear: both;
+}
+
+/*** Common CSS ***/
+
+#tweet_heading, #reddit_heading {
+
+  a {
+    color: $twitter_name;
+    font-size: 56px;
+  }
+}
+
+/*** reddit CSS ***/
+
+#reddit_heading {
+  text-align: center;
+  a {
+    color: $content_color;
   }
 }
 
@@ -161,6 +230,8 @@ footer {
   }
 
   .post_byline {
+    margin-bottom: 5px;
+
     a {
       &:link {
         text-decoration: none;
@@ -175,7 +246,7 @@ footer {
   .post_content {
     margin-bottom: 15px;
     border: 1px solid #369;
-    border-radius: 8px;
+    border-radius: 3px;
     padding: 0 5px;
     font-size: small;
   }
@@ -202,32 +273,35 @@ footer {
 .post_comment {
   margin: 5px 1px 1px 2px;
   border: 1px solid $domain_color;
-  border-radius: 5px;
+  border-radius: 3px;
 
   .comment_body {
     padding: 10px;
   }
 }
 
-.separator {
-  border: 1px solid $twitter_border;
-  margin-bottom: 15px;
+.comment_reply {
+  padding: 5px;
+  
+  &:hover {
+    cursor: pointer;
+  }
 }
+
+/*** Twitter CSS ***/
 
 .tweet, .tweet_content, .tweet_actions {
-  background: $twitter_bg;
-}
-
-.clear {
-  clear: both;
-}
-
-.tweet_heading {
   background: white;
-  margin: auto;
-  margin-bottom: 28px;
+}
+
+#tweet_heading {
+  background: white;
+  margin-left: 16px;
   padding: 2px;
-  width: 68px;
+  
+  #bird {
+    margin-right: 10px;
+  }
 }
 
 .tweet {
@@ -339,5 +413,21 @@ footer {
         text-decoration: underline;
       }
     }
+  }
+}
+
+/*** Footer CSS ***/
+
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: $footer_height;
+  width: 100%;
+  background: $footer_color;
+
+  a {
+    color: $nav_color_inactive;
+    text-shadow: 1px 2px black;
   }
 }

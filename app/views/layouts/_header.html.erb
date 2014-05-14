@@ -4,25 +4,22 @@
       <ul>
         <li id="nav-logo">
           <a href="/">
-            <span id="logo_top">This is</span><br/>
-            <span id="logo_bottom">CS50x</span>
+            <span id="logo_top">CS50x</span><br/>
+            <span id="logo_bottom">STL Edition</span>
           </a>
         </li>
         <li id="nav-latest"><%= link_to "Latest", root_url %></li>
         <li id="nav-reddit"><%= link_to "reddit", reddit_path %></li>
         <li id="nav-twitter"><%= link_to "Twitter", twitter_path %></li>
         <li id="nav-youtube"><%= link_to "YouTube", youtube_path %></li>
-        <li id="nav-user">
+        <span id="username">
           <% if current_user %>
-            <%= link_to "Log Out", reddit_logout_path %>
+              Logged In as <%= session[:username] %> | 
+              <%= link_to "Log Out", reddit_logout_path %><br/>
           <% else %>
-            <%= form_tag sessions_path do %>
-              <%= text_field_tag :username, nil, placeholder: "username" %>
-              <%= password_field_tag :password, nil, placeholder: "password" %>
-              <%= submit_tag "Log In" %>
-            <% end %>
+              <%= link_to "Log In", reddit_login_path %>
           <% end %>
-        </li>
+        </span>
       </ul>
     </div>
   </nav>

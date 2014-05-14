@@ -1,0 +1,14 @@
+<%= render 'layouts/header' %>
+
+<div class="content">
+  <div id="login_form">
+    <h2>reddit Log In</h2>
+    <%= form_tag sessions_path do %>
+      <%= text_field_tag :username, nil, placeholder: "username" %><br/>
+      <%= password_field_tag :password, nil, placeholder: "password" %><br/>
+      <%= submit_tag "Log In" %>
+    <% end %>
+  </div>
+</div>
+
+<%= render 'layouts/footer' %>

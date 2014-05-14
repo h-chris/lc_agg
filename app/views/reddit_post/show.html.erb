@@ -2,10 +2,26 @@
 
 <div class="content">
   <div class="post">
-    <%= raw @reddit_post.prep_reddit_post(@reddit_post) %>
+
+    <span class="post_title"> 
+      <%= link_to @reddit_post.title, @reddit_post.url %> 
+    </span>
+    <span class="post_domain">
+      (<%= link_to @reddit_post.domain, "http://reddit.com" +
+        (@reddit_post.domain.index("self") == 0 ? 
+            "/r/#{@reddit_post.subreddit}" :
+            "/domain/#{@reddit_post.domain}") %>)
+    </span>
+    <br/>
+    <div class="post_byline">
+      submitted <%= time_ago_in_words(@reddit_post.posted_at) %> by 
+      <%= link_to @reddit_post.author, 
+                  "http://reddit.com/u/#{@reddit_post.author}" %>
+    </div>
+
     <% if !@reddit_post.text.empty? %>
       <div class="post_content">
-        <%= markdown(@reddit_post.text).html_safe unless @reddit_post.text.nil? %>
+        <%= markdown(@reddit_post.text).html_safe %>
       </div>
     <% else %>
       <br/>
@@ -16,9 +32,23 @@
           <%= link_to "View on reddit", 
                       "http://www.reddit.com#{@reddit_post.permalink}" %>
         </li>
+        <li>
+          <% if current_user %>
+            <span id="submit_comment">
+              <%= form_tag '/send_comment' do %>
+                <%= hidden_field_tag 'fullname', "#{@reddit_post.name}" %>
+                <%= text_area_tag :message %><br/>
+                <%= submit_tag "save" %>
+              <% end %>
+            </span>
+          <% else %>
+            | <%= link_to "Log In to Comment", reddit_login_path %>
+          <% end %>
+        </li>
       </ul>
     </div>
   </div>
+  <br/>
   <div class="reddit_comments" id="<%= @reddit_post.name %>"></div>
 </div>
 

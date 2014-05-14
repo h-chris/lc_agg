@@ -1,0 +1,23 @@
+<%= render 'layouts/header' %>
+
+<div class="content">
+  <%= form_tag send_reddit_pm_path do %>
+    <%= label_tag 'To:' %><br/>
+    <%= text_field_tag :recipient, "#{@author}" %><br/>
+
+    <%= label_tag 'Subject:' %><br/>
+    <%= text_field_tag :subject, nil, 
+        maxlength: 100 %><br/>
+
+    <%= label_tag 'Message:' %><br/>
+    <%= text_area_tag :message, nil %><br/>
+
+    <% if @captcha_url %>
+      <%= image_tag @captcha_url %><br/>
+      <%= text_field_tag :captcha_value %><br/>
+    <% end %>
+    <%= submit_tag "Send Message" %>
+  <% end %>
+</div>
+
+<%= render 'layouts/footer' %>

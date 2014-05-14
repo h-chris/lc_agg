@@ -3,9 +3,12 @@
 <div class="content">
   <%= paginate @tweets %>
 
-  <div class="tweet_heading">
-    <%= link_to image_tag("Twitter_logo_blue.png", size: "64x52"), 
-          "https://twitter.com" %>
+  <div id="tweet_heading">
+    <span id="bird">
+      <%= link_to image_tag("Twitter_logo_blue.png", size: "64x52"), 
+            "https://twitter.com" %>
+    </span>
+    <%= link_to "@LaunchCodeSTL", "https://twitter.com/LaunchCodeSTL" %>
   </div>
   <div class="clear" />
 
@@ -40,7 +43,7 @@
                 <span class="tweet_screen_name">
                   @<%= tweet_hash[:screen_name] %>
                 </span>
-              </a>
+              </a> - 
               <span class="tweet_time">
                 <%= link_to tweet.tweeted_at.strftime("%-d %b"), 
                   "https://twitter.com/" + 
