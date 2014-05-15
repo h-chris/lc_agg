@@ -2,7 +2,6 @@
 
 <div class="content">
   <div class="post">
-
     <span class="post_title"> 
       <%= link_to @reddit_post.title, @reddit_post.url %> 
     </span>
@@ -23,8 +22,6 @@
       <div class="post_content">
         <%= markdown(@reddit_post.text).html_safe %>
       </div>
-    <% else %>
-      <br/>
     <% end %>
     <div class="post_view_line">
       <ul>

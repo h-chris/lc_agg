@@ -5,10 +5,12 @@
     <%= link_to "/r/LaunchCodeCS50x", "http://reddit.com/r/LaunchCodeCS50x" %>
   </div>
   <%= paginate @reddits %>
+  <span id="after" class="<%= @after ? @after : "null" %>"></span>
   <% @reddits.each do |post| %>
     <div class="post">
       <span class="post_title"> 
-        <%= link_to post.title, post.url %> 
+        <%= link_to post.title, post.is_self ? reddit_post_path(post) : 
+                                               post.url %> 
       </span>
       <span class="post_domain">
         (<%= link_to post.domain, "http://reddit.com" +
@@ -18,33 +20,31 @@
       <br/>
       <div class="post_byline">
         submitted <%= time_ago_in_words(post.posted_at) %> by 
-        <%= link_to post.author, "http://reddit.com/u/#{post.author}" %>
+        <%= link_to post.author, "http://reddit.com/u/#{post.author}" %> 
+        <% if current_user %>
+          <span class="pm_author">
+            (<%= link_to("PM Author", reddit_pm_path(author: post.author), 
+                method: :post) %>)
+          </span>
+        <% end %>
       </div>
 
       <% if !post.text.empty? %>
         <div class="post_content">
-          <%= markdown(post.text).html_safe unless post.text.nil? %>
+          <%= markdown(post.text).html_safe %>
         </div>
-      <% else %>
-        <br/>
       <% end %>
       <div class="post_view_line">
         <ul>
           <li>
             <%= link_to "<span id=\"#{post.name}\"></span>".html_safe + 
-                  "Comments", reddit_post_path(post) %> | 
+                  "<span class=\"num_comments\">Comments</span>".html_safe, 
+                  reddit_post_path(post) %> 
           </li>
+          <li> | </li>
           <li>
             <%= link_to "View on reddit", 
-                        "http://www.reddit.com#{post.permalink}" %> | 
-          </li>
-          <li>
-            <% if current_user %>
-              <%= link_to("PM Author", reddit_pm_path(author: post.author), 
-                  method: :post) %>
-            <% else %>
-              <%= link_to "Login to PM Author", reddit_login_path %>
-            <% end %>
+                        "http://www.reddit.com#{post.permalink}" %>
           </li>
         </ul>
       </div>

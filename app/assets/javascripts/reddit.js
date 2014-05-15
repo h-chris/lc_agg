@@ -6,10 +6,11 @@ var max_depth   = 9;
 var padding     = 5;
 var text_height = 100;
 var auth_token  = "";
+var ext = ".json";
 
 // Turbolinks workaround
-$(document).ready(init_comments);
-$(document).on('page:load', init_comments);
+$(document).ready(ready);
+$(document).on('page:load', ready);
 
 // Used for accessing classes and ids added to html via ajax
 $(window).load(function(){
@@ -43,73 +44,137 @@ $(window).load(function(){
   });
 });
 
+function ready()
+{
+  var controller = $('body').data('controller');
+
+  // controller#action specific js
+  // reddit
+  if (controller == "reddit_post")
+  {
+    var action = $('body').data('action');
+
+    if (action == "index")
+    {
+      get_num_comments();
+    }
+    else if (action == "show")
+    {
+      init_comments();
+    }
+  }
+  // Twitter
+  else if (controller == "tweet")
+  {
+  }
+}
+
+function get_num_comments()
+{
+  // number of posts per page, from model
+  var per_page = 10;
+
+  // parameters to pass to scraper
+  var url_options = "?limit=" + per_page + 
+                    "&after=" + $("#after").attr('class'); 
+
+  // combined url
+  var fullurl  = reddit_url + subreddit + "new/" + ext + url_options;
+  
+  // grab data
+  $.getJSON(fullurl, function(json){
+    var results = json.data.children;
+
+    // check results exist
+    if (results)
+    {
+      // loop through results
+      for (var i = 0, len = results.length; i < len; i++)
+      {
+        // set vars to clear things up
+        var post_data = results[i].data;
+        var current   = $(".num_comments").eq(i);
+
+        // make sure scraped data corresponds to what is actually on page
+        if (post_data.name == current.prev().attr('id'))
+        {
+          // pluralization check
+          if (post_data.num_comments == 1)
+          {
+            current.html(post_data.num_comments + " Comment");
+          }
+          else
+          {
+            current.html(post_data.num_comments + " Comments");
+          }
+        }
+      }
+    }
+  });
+}
+
 function init_comments()
 {
   // authenticity token for rails csrf
   auth_token = $("meta[name=csrf-token]").attr("content");
 
-  // only run when in reddit#show
-  if ($(".reddit_comments").length != 0)
-  {
-    // reddit vars
-    var ext = ".json";
-    var html = "";
+  // html for output
+  var html = "";
 
-    // grab fullname var of post
-    var fullname = $(".reddit_comments").attr('id').substring(3);
+  // grab fullname var of post
+  var fullname = $(".reddit_comments").attr('id').substring(3);
 
-    // full url to query
-    var fullurl = reddit_url + subreddit + comment_url + fullname + ext;
+  // full url to query
+  var fullurl = reddit_url + subreddit + comment_url + fullname + ext;
 
-    $.getJSON(fullurl, function(json){
+  $.getJSON(fullurl, function(json){
 
-      // json[0] is original post, json[1] is comments section
-      var comments = json[1].data.children;
+    // json[0] is original post, json[1] is comments section
+    var comments = json[1].data.children;
 
-      // possible truncated comments
-      if (json[0].data.children[0].data.num_comments > max_depth);
+    // possible truncated comments
+    if (json[0].data.children[0].data.num_comments > max_depth);
+    {
+      post_url = json[0].data.children[0].data.url;
+    }
+
+    // only loop if there are comments
+    if (comments.length > 0)
+    {
+      // loop through comments
+      for (var i = 0, len = comments.length; i < len; i++)
       {
-        post_url = json[0].data.children[0].data.url;
+        var depth = 1;
+
+        // wrap each comment thread
+        html += "<div class=\"post_comment\">";
+        html +=   "<div class=\"comment_body\">";
+
+        var thread = comments[i].data;
+
+        // link to author's reddit overview
+        html += "<a href=\"" + reddit_url + "u/" + thread.author + "\">" +
+                thread.author +
+                "</a>" + " "; 
+        html += timeSince(thread.created_utc) + "<br/>";
+        html += $("<span/>").html(thread.body_html).text();
+        html += "<br/></div>";
+
+        html += "<div class=\"comment_reply\" id=\"" + thread.name + "\">";
+        html += "<div class=\"reply_text\">reply</div>";
+        html += generate_textarea(thread.name);
+        
+
+        html += replies(thread.replies, depth);
+
+        html += "</div></div>";
       }
 
-      // only loop if there are comments
-      if (comments.length > 0)
-      {
-        // loop through comments
-        for (var i = 0, len = comments.length; i < len; i++)
-        {
-          var depth = 1;
-
-          // wrap each comment thread
-          html += "<div class=\"post_comment\">";
-          html +=   "<div class=\"comment_body\">";
-
-          var thread = comments[i].data;
-
-          // link to author's reddit overview
-          html += "<a href=\"" + reddit_url + "u/" + thread.author + "\">" +
-                  thread.author +
-                  "</a>" + " "; 
-          html += timeSince(thread.created_utc) + "<br/>";
-          html += $("<span/>").html(thread.body_html).text();
-          html += "<br/></div>";
-
-          html += "<div class=\"comment_reply\" id=\"" + thread.name + "\">";
-          html += "<div class=\"reply_text\">reply</div>";
-          html += generate_textarea(thread.name);
-          
-
-          html += replies(thread.replies, depth);
-
-          html += "</div>";
-        }
-
-        // output
-        $(".reddit_comments").html(html);
-        $(".reply_area").hide();
-      }
-    });
-  }
+      // output
+      $(".reddit_comments").html(html);
+      $(".reply_area").hide();
+    }
+  });
 }
 
 /*

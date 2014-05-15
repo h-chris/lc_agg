@@ -8,6 +8,7 @@ $content_background:  #f0f0f0;
 $content_color:       #202020;
 $content_shadow:      #202020;
 $domain_color:        #787878;
+$separator_color:     #d0d0d0;
 
 $twitter_name:        #292f33;
 $twitter_screen_name: #8899a6;
@@ -172,7 +173,7 @@ body {
 }
 
 .separator {
-  border: 1px solid $twitter_border;
+  border: 1px solid $separator_color;
   margin-bottom: 15px;
 }
 
@@ -230,24 +231,25 @@ body {
   }
 
   .post_byline {
-    margin-bottom: 5px;
+    margin-bottom: 7px;
 
     a {
-      &:link {
-        text-decoration: none;
-      }
-
       &:hover {
         text-decoration: underline;
       }
     }
   }
 
+  .pm_author {
+    color: $domain_color;
+    font-size: x-small;
+  }
+
   .post_content {
     margin-bottom: 15px;
     border: 1px solid #369;
-    border-radius: 3px;
-    padding: 0 5px;
+    border-radius: 4px;
+    padding: 5px 5px;
     font-size: small;
   }
 

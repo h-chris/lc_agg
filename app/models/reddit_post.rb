@@ -15,7 +15,7 @@ class RedditPost < ActiveRecord::Base
 
   # data = results['data']['children'][0]['data']
 
-  paginates_per 15
+  paginates_per 10
 
   def update_r_db
 

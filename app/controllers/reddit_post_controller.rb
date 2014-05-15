@@ -3,6 +3,8 @@ class RedditPostController < ApplicationController
   def index
     RedditPost.new.update_r_db
     @reddits = RedditPost.order('posted_at DESC').page params[:page]
+    @after = RedditPost.find(@reddits.first.id + 1).name unless 
+      @reddits.first.id == RedditPost.last.id
   end
 
   def show
