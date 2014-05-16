@@ -3,10 +3,17 @@ LcAgg::Application.routes.draw do
 
   root 'pages#latest'
 
+<<<<<<< HEAD
   match '/twitter',      to: 'tweet#index',          via: 'get'
   match '/youtube',      to: 'pages#youtube',        via: 'get'
   match '/about',        to: 'pages#about',          via: 'get'
   match '/faq',          to: 'pages#faq',            via: 'get'
+=======
+  match '/twitter',      to: 'tweet#index',       via: 'get'
+  match '/youtube',      to: 'youtube#index',     via: 'get'
+  match '/about',        to: 'pages#about',       via: 'get'
+  match '/faq',          to: 'pages#faq',         via: 'get'
+>>>>>>> add_youtube_videos
 
   match '/reddit',       to: 'reddit_post#index',    via: 'get'
   match '/reddit/:id',   to: 'reddit_post#show',     via: 'get', 

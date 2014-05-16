@@ -1,0 +1,21 @@
+<%= render 'layouts/header' %>
+
+<div class="content">
+  <%= paginate @youtubes %>
+
+  <% @youtubes.each do |vid| %>
+    <div class="yt_video">
+      <iframe title="YouTube video player" 
+              width="550" 
+              height="413" 
+              src="http:<%= vid.url %>" 
+              frameborder="0" 
+              allowfullscreen>
+      </iframe>
+    </div>
+  <% end %>
+
+  <%= paginate @youtubes %>
+</div>
+
+<%= render 'layouts/footer' %>
