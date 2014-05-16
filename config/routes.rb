@@ -4,7 +4,7 @@ LcAgg::Application.routes.draw do
   root 'pages#latest'
 
   match '/twitter',      to: 'tweet#index',       via: 'get'
-  match '/youtube',      to: 'pages#youtube',     via: 'get'
+  match '/youtube',      to: 'youtube#index',     via: 'get'
   match '/about',        to: 'pages#about',       via: 'get'
   match '/faq',          to: 'pages#faq',         via: 'get'
 
