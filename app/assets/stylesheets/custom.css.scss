@@ -251,10 +251,13 @@ body {
     border-radius: 4px;
     padding: 5px 5px;
     font-size: small;
+
+    p {
+      padding: 4px;
+    }
   }
 
   .post_view_line {
-
     li {
       padding-right: 5px; 
       display: inline;
@@ -282,11 +285,20 @@ body {
   }
 }
 
+.post_content, .post_comment {
+  box-shadow: 2px 2px 3px $content_shadow;
+}
+
 .comment_reply {
   padding: 5px;
   
   &:hover {
     cursor: pointer;
+  }
+
+  .reply_text {
+    float: right;
+    margin-right: 10px;
   }
 }
 
@@ -416,6 +428,18 @@ body {
       }
     }
   }
+}
+
+/*** Youtube CSS ***/
+.yt_title {
+  width: 550px;
+  margin: 15px auto 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.yt_video {
 }
 
 /*** Footer CSS ***/

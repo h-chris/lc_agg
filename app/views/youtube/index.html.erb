@@ -4,15 +4,13 @@
   <%= paginate @youtubes %>
 
   <% @youtubes.each do |vid| %>
-    <div class="yt_video">
-      <iframe title="YouTube video player" 
-              width="550" 
-              height="413" 
-              src="http:<%= vid.url %>" 
-              frameborder="0" 
-              allowfullscreen>
-      </iframe>
+    <div class="yt_title">
+      <%= vid.title %>
     </div>
+
+    <%= render 'layouts/youtube', locals = { embed: vid.embed_id } %>
+
+    <div class="separator"></div>
   <% end %>
 
   <%= paginate @youtubes %>

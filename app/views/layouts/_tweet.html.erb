@@ -1,0 +1,73 @@
+<li class="tweet">
+
+  <% tweet_hash = tweet.tweet_info(tweet) %>
+  
+  <% unless tweet.retweeted_status.empty? %>
+    <div class="rt_line">
+      <span class="rt_icon">
+        <%= image_tag "retweet_on.png", alt: "rt" %> 
+      </span> 
+      Retweeted by 
+      <%= link_to tweet.name, "https://twitter.com/" + 
+                              tweet.screen_name %>
+    </div>
+  <% end %> 
+
+  <div class="tweet_content">
+    <div class="tweet_left">
+      <span class="profile_image">
+        <%=  link_to image_tag(tweet_hash[:profile_image]), 
+               "https://twitter.com/#{tweet_hash[:screen_name]}" %>
+      </span>
+    </div>
+    <div class="tweet_right">
+      <div class="tweet_byline">
+        <a href="https://twitter.com/<%= tweet_hash[:screen_name] %>">
+          <span class="tweet_name"><%= tweet_hash[:name] %></span>
+          <span class="tweet_screen_name">
+            @<%= tweet_hash[:screen_name] %>
+          </span>
+        </a> - 
+        <span class="tweet_time">
+          <%= link_to tweet.tweeted_at.strftime("%-d %b"), 
+            "https://twitter.com/" + 
+            tweet_hash[:screen_name] + 
+            "/status/" + 
+            tweet_hash[:id] %>
+        </span>
+      </div>
+      <span class="tweet_text"><%= raw tweet.text %></span>
+    </div>
+  </div>
+
+  <div class="tweet_actions">
+    <ul>
+      <li>
+        <%= image_tag "reply_hover.png", alt: "Reply" %>
+      </li>
+      <li>
+        <%= link_to "Reply", 
+            "https://twitter.com/intent/tweet?in_reply_to=" + 
+            tweet.id_str %>
+      </li>
+      <li>
+        <%= image_tag "retweet_hover.png", alt: "Reply" %>
+      </li>
+      <li>
+        <%= link_to "Retweet", 
+            "https://twitter.com/intent/retweet?tweet_id=" +
+            tweet.id_str %>
+      </li>
+      <li>
+        <%= image_tag "favorite_hover.png", alt: "Reply" %>
+      </li>
+      <li>
+        <%= link_to "Favorite", 
+            "https://twitter.com/intent/favorite?tweet_id=" +
+            tweet.id_str %>
+      </li>
+    </ul>
+  </div>
+  <div class="clear" />
+  <div class="separator" />
+</li>

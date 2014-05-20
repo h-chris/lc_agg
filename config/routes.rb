@@ -4,9 +4,7 @@ LcAgg::Application.routes.draw do
   root 'pages#latest'
 
   match '/twitter',      to: 'tweet#index',       via: 'get'
-  match '/youtube',      to: 'youtube#index',     via: 'get'
   match '/about',        to: 'pages#about',       via: 'get'
-  match '/faq',          to: 'pages#faq',         via: 'get'
 
   match '/reddit',       to: 'reddit_post#index',    via: 'get'
   match '/reddit/:id',   to: 'reddit_post#show',     via: 'get', 
@@ -18,6 +16,8 @@ LcAgg::Application.routes.draw do
   match '/new_link',     to: 'reddit_post#new_link', via: 'get',
                          as: 'reddit_link'
   
+  match '/youtube',      to: 'youtube#index',     via: 'get'
+
   post 'send_pm',       to: 'reddit_post#send_reddit_pm', 
                         as: 'send_reddit_pm'
   post 'send_comment',  to: 'reddit_post#send_reddit_comment', 

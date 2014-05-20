@@ -11,13 +11,13 @@
         <li id="nav-latest"><%= link_to "Latest", root_url %></li>
         <li id="nav-reddit"><%= link_to "reddit", reddit_path %></li>
         <li id="nav-twitter"><%= link_to "Twitter", twitter_path %></li>
-        <li id="nav-youtube"><%= link_to "YouTube", youtube_path %></li>
+        <li id="nav-youtube"><%= link_to "LaunchCode TV", youtube_path %></li>
         <span id="username">
           <% if current_user %>
               Logged In as <%= session[:username] %> | 
               <%= link_to "Log Out", reddit_logout_path %><br/>
           <% else %>
-              <%= link_to "Log In", reddit_login_path %>
+              <%= link_to "reddit Log In", reddit_login_path %>
           <% end %>
         </span>
       </ul>

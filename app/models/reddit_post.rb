@@ -84,4 +84,15 @@ class RedditPost < ActiveRecord::Base
   def num_comments(post)
     return RedditKit.link(post.name).num_comments.to_s
   end
+
+  def get_embed(post_url, domain)
+    url = post_url.sub("&amp;", "&")
+    if domain == "youtu.be"
+      embed = url.split(/https?:\/\/youtu.be\//)[1]
+    else
+      embed = url.split(/https?:\/\/www.youtube.com\/watch\?v=/)[1]
+    end
+
+    return embed
+  end
 end
