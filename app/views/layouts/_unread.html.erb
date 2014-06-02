@@ -15,7 +15,11 @@
         <%= markdown(message[:body]).html_safe %>
       </div>
       <% if message[:context].empty? %>
-        <%= link_to "Respond", reddit_pm_path, class: "respond" %>
+        <%= link_to "Respond", reddit_pm_path(author: message[:author], 
+            subject: message[:subject].index(/re:/i) ? 
+              message[:subject] :
+              "re: " + message[:subject]), 
+            class: "respond" %>
       <% else %>
         <%= link_to "Go to Thread", reddit_post_path(message[:parent_id]),  
             class: "context_link" %>
