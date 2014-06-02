@@ -4,19 +4,22 @@
   <%= form_tag submit_reddit_link_path do %>
     <%= label_tag 'Subreddit:' %><br/>
     <%= text_field_tag :subreddit, 'LaunchCodeCS50x' %><br/>
+    <br/>
 
     <%= label_tag 'Title:' %><br/>
     <%= text_field_tag :title, nil, maxlength: 300 %><br/>
+    <br/>
 
     <%= label_tag 'Link Url (Optional):' %><br/>
     <%= text_field_tag :url, nil %><br/>
+    <br/>
 
     <%= label_tag 'Body:' %><br/>
     <%= text_area_tag :text, nil %><br/>
+    <br/>
 
-    <% if @captcha_url %>
-      <%= image_tag @captcha_url %><br/>
-      <%= text_field_tag :captcha_value %><br/>
+    <% if @captcha %>
+      <%= render 'layouts/captcha' %>
     <% end %>
     <%= submit_tag "Submit Link" %>
   <% end %>

@@ -1,3 +1,6 @@
+var logo_height = 100;
+var menu_height = 0;
+var menu_width  = 200;
 var reddit_url  = "http://www.reddit.com/";
 var subreddit   = "r/LaunchCodeCS50x/";
 var comment_url = "comments/";
@@ -14,10 +17,6 @@ $(document).on('page:load', ready);
 
 // Used for accessing classes and ids added to html via ajax
 $(window).load(function(){
-
-  $("#continue").click(function(){
-    continue_thread();
-  });
 
   $(".comment_reply").click(function(){
 
@@ -42,6 +41,44 @@ $(window).load(function(){
     parent_id.find('.submit_reply').val("");
     parent_id.find('.reply_text').show();
   });
+
+  $("#refresh_captcha").click(function(event){
+    event.preventDefault();
+    get_new_captcha();
+  });
+
+  $("#mark_read").click(function(event){
+    event.preventDefault();
+    var checks = [];
+    $(".checkbox").each(function(){
+      if ($(this).prop("checked"))
+        checks.push($(this).attr('id'));
+    });
+    $.post('/mark_read', {names: checks}, function(){
+      $("#inbox").load('/inbox #inbox');
+    });
+  });
+
+  $("#search_button").click(function(event){
+    event.preventDefault();
+    var options = {};
+    options['query'] = $("#query").val();
+    options['restrict'] = $("#restrict_sr").prop("checked");
+    search_reddit(options);
+  });
+
+  $("#pset_button").click(function(event){
+    event.preventDefault();
+    var options = {};
+    var query = "";
+    $(".pset_options").each(function(){
+      if ($(this).prop("checked"))
+        query += $(this).attr('id') + " ";
+    });
+    options['query'] = query;
+    options['restrict'] = $("#restrict_sr").prop("checked");
+    search_reddit(options);
+  });
 });
 
 function ready()
@@ -50,7 +87,8 @@ function ready()
 
   // controller#action specific js
   // reddit
-  if (controller == "reddit_post")
+  if (controller == "reddit_post" ||
+      controller == "pages")
   {
     var action = $('body').data('action');
 
@@ -62,11 +100,34 @@ function ready()
     {
       init_comments();
     }
+    else if (action == "new_link" ||
+             action == "pm")
+    {
+      get_new_captcha()
+    }
   }
   // Twitter
   else if (controller == "tweet")
   {
   }
+
+  $("#continue").click(function(){
+    continue_thread();
+  });
+
+  $("#nav-reddit").mouseenter(function(){
+    $("#r_menu").show();
+  });
+
+  $("#nav-reddit").mouseleave(function(){
+    $("#r_menu").hide();
+    $("#r_menu").mouseenter(function(){
+      $("#r_menu").show();
+    });
+    $("#r_menu").mouseleave(function(){
+      $("#r_menu").hide();
+    });
+  });
 }
 
 function get_num_comments()
@@ -177,6 +238,20 @@ function init_comments()
   });
 }
 
+function get_new_captcha()
+{
+  $.get('/captcha', function(response){ 
+    var data = $(response)[$(response).length - 2];
+    var captcha_id = $(data).text();
+    var image_link = reddit_url + "captcha/" + captcha_id + ".png";
+    $("#captcha_id").attr("value", captcha_id);
+    $("#captcha_img").attr({
+      src: image_link,
+      alt: captcha_id
+    });
+  }, "html");
+}
+
 /*
  * Returns the html output for the replies to the comments
  */
@@ -251,6 +326,72 @@ function generate_textarea(id)
                    "Cancel" + 
                  "</button></form></div><br/>";
   return textarea;
+}
+
+function search_reddit(options)
+{
+  var fullurl = reddit_url + subreddit + "search" + ext + "?";
+  if (options['restrict'])
+    fullurl += "restrict_sr=true&";
+
+  var query = "q=";
+  $.each(options['query'].split(' '), function(i, value){
+    if (i == 0)
+      query += value;
+    else
+      query += "+" + value;
+  });
+
+  // 2 additional characters are needed to account for q=
+  if (query.length > 2 && query.length <= 514)
+  {
+    fullurl += query;
+    $.getJSON(fullurl, function(json){
+      var results = json.data.children;
+      var html = "";
+
+      if (results)
+      {
+        $.each(results, function(i, value){
+          html += format_result(value.data);
+        });
+      }
+      
+      $("#results").html(html).text();
+    });
+  }
+  else
+    alert("Search terms must be between 1 and 512 characters.");
+}
+
+function format_result(result)
+{
+  var output = "";
+  
+  if (result.is_self && result.domain == "self.LaunchCodeCS50x")
+    output += title_link(result.title, "reddit/" + result.name);
+  else
+    output += title_link(result.title, result.url);
+
+  output += "<span class=\"post_domain\">(" + result.domain + ")</span><br/>";
+  output += "<div class=\"post_byline\">";
+  output += "submitted " + timeSince(result.created_utc) + " by "; 
+  output += "<a href=\"" + reddit_url + "u/" + result.author + "\">"; 
+  output += result.author;
+  output += "</a></div><br/>";
+
+  if (result.is_self)
+  {
+    output += "<div class=\"post_content\">"; 
+    output += $("<span/>").html(result.selftext_html).text() + "</div><br/>";
+  }
+  return output;
+}
+
+function title_link(title, url){
+  var out = "<a href=\"" + url + "\"><span class=\"post_title\">";
+  out += title + "</span></a> ";
+  return out
 }
 
 /*

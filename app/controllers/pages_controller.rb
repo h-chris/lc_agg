@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
 
-  def latest
+  def index
     max_latest = 10
 
     RedditPost.new.update_r_db

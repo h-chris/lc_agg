@@ -2,19 +2,21 @@
 
 <div class="content">
   <%= form_tag send_reddit_pm_path do %>
-    <%= label_tag 'To:' %><br/>
+    <%= label_tag 'Recipient:' %><br/>
     <%= text_field_tag :recipient, "#{@author}" %><br/>
+    <br/>
 
-    <%= label_tag 'Subject:' %><br/>
-    <%= text_field_tag :subject, nil, 
+    <%= label_tag 'Subject: (Optional)' %><br/>
+    <%= text_field_tag :subject, "#{@subject}", 
         maxlength: 100 %><br/>
+    <br/>
 
     <%= label_tag 'Message:' %><br/>
     <%= text_area_tag :message, nil %><br/>
+    <br/>
 
-    <% if @captcha_url %>
-      <%= image_tag @captcha_url %><br/>
-      <%= text_field_tag :captcha_value %><br/>
+    <% if @captcha %>
+      <%= render 'layouts/captcha' %>
     <% end %>
     <%= submit_tag "Send Message" %>
   <% end %>

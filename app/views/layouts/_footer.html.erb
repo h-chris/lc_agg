@@ -1,6 +1,33 @@
 <footer>
-  <ul>
-    <li><%= link_to "About", '#' %></li>
-    <li><%= link_to "FAQ", '#' %></li>
-  </ul>
+  <div id="footer_wrapper">
+    <ul>
+      <li>
+        <ul id="cs50_links">
+          <li id="cs50_title">CS50x</li>
+          <li><%= link_to "@CS50", 
+                          'http://www.twitter.com/cs50' %></li>
+          <li><%= link_to "CS50 Subreddit", 
+                  'http://www.reddit.com/r/CS50' %></li>
+          <li><%= link_to "CS50x (edX)", 
+            'https://www.edx.org/course/harvardx/harvardx-cs50x-introduction-computer-1022' %></li>
+          <li><%= link_to "CS50 (Harvard)", 
+                  'http://CS50.harvard.edu' %></li>
+        </ul>
+      </li>
+      <li class="vert-separator"></li>
+      <li>
+        <ul id="lc_links">
+          <li id="lc_title">LaunchCodeSTL</li>
+          <li><%= link_to "@LaunchCodeSTL", 
+                          'http://www.twitter.com/LaunchCodeSTL' %></li>
+          <li><%= link_to "LaunchCodeCS50x Subreddit", 
+                  'http://www.reddit.com/r/LaunchCodeCS50x' %></li>
+          <li><%= link_to "LaunchCode Site", 
+                          'http://www.launchcodestl.com' %></li>
+          <li><%= link_to "LaunchCode TV", 
+                          'http://tv.launchcode.us' %></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
 </footer>

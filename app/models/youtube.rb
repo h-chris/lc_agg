@@ -17,7 +17,7 @@ class Youtube < ActiveRecord::Base
     lctv = "http://tv.launchcode.us/rest/videos1.json"
 
     # get data to use
-    results = parseJSON(lctv)
+    results = parseJSON(lctv) if valid_json? lctv
 
     # check that hash isn't nil
     return nil if results.nil?

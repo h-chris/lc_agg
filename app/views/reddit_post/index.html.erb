@@ -8,6 +8,7 @@
   <span id="after" class="<%= @after ? @after : "null" %>"></span>
   <% @reddits.each do |post| %>
     <%= render 'layouts/post', locals = { post: post } %>
+    <div class="separator"></div>
   <% end %>
   <%= paginate @reddits %>
 </div>

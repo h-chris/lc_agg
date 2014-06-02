@@ -1,0 +1,9 @@
+[{"number": "0", "terms": [ "scratch" ]},
+{"number": "1", "terms": [ "hello", "mario", "greedy" ]},
+{"number": "2", "terms": [ "caesar","vigenere" ]},
+{"number": "3", "terms": [ "find", "sort", "helpers", "game of fifteen" ]},
+{"number": "4", "terms": [ "breakout" ]},
+{"number": "5", "terms": [ "whodunit", "resize", "recover" ]},
+{"number": "6", "terms": [ "speller", "dictionary" ]},
+{"number": "7", "terms": [ "cs50 finance", "c$50 finance" ]},
+{"number": "8", "terms": [ "cs50 shuttle" ]}]

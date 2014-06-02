@@ -21,8 +21,8 @@ $twitter_active:      #999;
 /*** dimension vars ***/ 
 $logo_height:         100px;
 $logo_width:          300px;
-$footer_height:       100px;
-$content_width:       65%;
+$footer_height:       125px;
+$content_width:       60%;
 $content_min_width:   600px;
 $content_margin_top:  $logo_height + 10px;
 $content_padding:     30px;
@@ -34,6 +34,15 @@ $profile_image_width: 48px;
 
 $rt_icon_width:       16px;
 $rt_icon_margin:      $profile_image_width - $rt_icon_width;
+
+$captcha_img_height:  50px;
+$captcha_img_width:   120px;
+$captcha_img_middle:  $captcha_img_height / 2.0;
+$refresh_img_size:    24px;
+$refresh_img_padding: 6px;
+$refresh_img_total:   $refresh_img_size + $refresh_img_padding * 2;
+$refresh_img_middle:  $refresh_img_total / 2.0;
+$refresh_img_margin:  ($captcha_img_height - $refresh_img_total) / 2.0; 
 
 html {
   position: relative;
@@ -86,6 +95,38 @@ nav {
     a {
       font-weight: bold;
     }
+
+    #unread a {
+      font-weight: normal;
+      text-decoration: underline;
+    }
+  }
+}
+
+#r_menu {
+  position: absolute;
+  top: 100px;
+  left: 367px;
+  width: 200px;
+  text-align: left;
+  background: $content_background;
+  box-shadow: 2px 2px 5px $content_shadow;
+
+  a {
+    color: $content_color;
+  }
+
+  ul {
+   padding: 0px;
+   margin: 10px auto 5px;
+  }
+
+  li {
+    margin: 5px;
+  }
+
+  .logout {
+    font-weight: bold;
   }
 }
 
@@ -101,7 +142,9 @@ nav {
   padding-left: 18px;
   font-size: 30px;
 }
-
+#nav-reddit {
+  padding-bottom: 5px;
+}
 /*** Body CSS ***/
 
 body { 
@@ -123,6 +166,7 @@ body {
   }
 
   form {
+
     #login_form {
       width: 95%;
       min-width: $content_min_width - 10px;
@@ -156,6 +200,38 @@ body {
   }
 }
 
+/*** Inbox CSS ***/
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+#inbox td {
+  border: 1px solid $content_color;
+}
+
+.checkbox {
+  float: left;
+  margin: 0 auto;
+  width: 100%;
+  vertical-align: middle;
+}
+
+.message_right {
+  float: left;
+  width: 500px;
+  padding: 10px;
+}
+
+.subject_line {
+  font-weight: bold;
+}
+
+#mark_read {
+  margin: 10px auto;
+  text-align: center;
+}
+
 .pagination {
   padding: 10px;
   width: $content_width;
@@ -167,6 +243,19 @@ body {
     text-shadow: 0 1px $content_shadow;
   }
 }
+
+.pset_options {
+}
+
+.set {
+  float: left;
+  padding: 5px;
+  min-height: 100px;
+}
+
+.terms {
+}
+
 .yt_video {
   margin: auto;
   text-align: center;
@@ -183,7 +272,7 @@ body {
 
 /*** Common CSS ***/
 
-#tweet_heading, #reddit_heading {
+#tweet_heading, #reddit_heading, #lctv_heading {
 
   a {
     color: $twitter_name;
@@ -193,7 +282,7 @@ body {
 
 /*** reddit CSS ***/
 
-#reddit_heading {
+#reddit_heading, #lctv_heading {
   text-align: center;
   a {
     color: $content_color;
@@ -203,73 +292,73 @@ body {
 .post {
   margin-bottom: 8px;
 
-  .post_title {
-    font-size: medium;
-    margin-bottom: 1px;
-    margin-right: .4em;
-    
-    a {
-      text-decoration: none;
-    }
-  }
-
-  .post_domain {
-    color: $domain_color;
-    font-size: x-small;
-
-    a {
-      color: $domain_color;
-
-      &:link {
-        text-decoration: none;
-      }
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-
-  .post_byline {
-    margin-bottom: 7px;
-
-    a {
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-
   .pm_author {
     color: $domain_color;
     font-size: x-small;
   }
+}
 
-  .post_content {
-    margin-bottom: 15px;
-    border: 1px solid #369;
-    border-radius: 4px;
-    padding: 5px 5px;
-    font-size: small;
+.post_title {
+  font-size: medium;
+  margin-bottom: 1px;
+  margin-right: .4em;
+  
+  a {
+    text-decoration: none;
+  }
+}
 
-    p {
-      padding: 4px;
+.post_domain {
+  color: $domain_color;
+  font-size: x-small;
+
+  a {
+    color: $domain_color;
+
+    &:link {
+      text-decoration: none;
+    }
+
+    &:hover {
+      text-decoration: underline;
     }
   }
+}
 
-  .post_view_line {
-    li {
-      padding-right: 5px; 
-      display: inline;
+.post_byline {
+  margin-bottom: 7px;
 
-      a {
-        color: $domain_color;
-        font-weight: bold;
-        font-size: small;
+  a {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
 
-        &:hover {
-          text-decoration: underline;
-        }
+.post_content {
+  margin-bottom: 15px;
+  border: 1px solid #369;
+  border-radius: 4px;
+  padding: 5px 5px;
+  font-size: small;
+
+  p {
+    padding: 4px;
+  }
+}
+
+.post_view_line {
+  li {
+    padding-right: 5px; 
+    display: inline;
+
+    a {
+      color: $domain_color;
+      font-weight: bold;
+      font-size: small;
+
+      &:hover {
+        text-decoration: underline;
       }
     }
   }
@@ -295,11 +384,41 @@ body {
   &:hover {
     cursor: pointer;
   }
+}
 
-  .reply_text {
-    float: right;
-    margin-right: 10px;
-  }
+.reply_text, .respond, .context_link {
+  float: right;
+  margin-right: 10px;
+}
+
+.search_content {
+  min-height: 400px;
+}
+
+#search_wrapper {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#options_wrapper {
+  margin-bottom: 10px;
+  width: 100%;
+  min-width: $content_min_width - 10px;
+}
+
+#restrict_option {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+#captcha_img {
+  float: left;
+}
+  
+#refresh_captcha {
+ margin: $refresh_img_margin 5px;
+ padding: 6px;
+ background: $content_background;
 }
 
 /*** Twitter CSS ***/
@@ -453,7 +572,36 @@ footer {
   background: $footer_color;
 
   a {
-    color: $nav_color_inactive;
-    text-shadow: 1px 2px black;
+    padding: 2px;
   }
+}
+
+#footer_wrapper {
+  width: $content_width;
+  margin: auto;
+}
+
+.vert-separator {
+  float: left;
+  width: 0;
+  height: $footer_height * .75;
+  border: 1px solid $nav_color_inactive;
+  margin: 0 5px;
+}
+
+#lc_links, #cs50_links {
+  padding: 0 5px;
+  float: left;
+}
+
+#lc_title, #cs50_title {
+  margin-bottom: 5px;
+  text-align: center;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+footer a, #lc_title, #cs50_title {
+  color: $nav_color_inactive;
+  text-shadow: 1px 2px black;
 }

@@ -1,0 +1,24 @@
+<%= render 'layouts/header' %>
+
+<div class="content search_content">
+  <div id="restrict_option">
+    <%= check_box_tag "restrict_sr", 'yes', true %>
+    Restrict search to /r/LaunchCodeCS50x?
+  </div>
+  <div id="search_wrapper" <%= "hidden" if params[:pset] %>>
+    <%= button_tag "Search", id: "search_button" %>
+    <%= text_field_tag "query", nil, placeholder: "Search", maxlength: 512 %>
+  </div>
+  <div id="options_wrapper" <%= "hidden" unless params[:pset] %>>
+    <%= button_tag "Search", id: "pset_button" %>
+    <br/>
+    <% @sets.each do |set| %>
+      <%= render 'layouts/pset', locals = { pset: set } %>
+    <% end %>
+    <div class="clear"></div>
+    <br/>
+  </div>
+  <div id="results"></div>
+</div>
+
+<%= render 'layouts/footer' %>

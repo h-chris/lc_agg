@@ -1,6 +1,9 @@
 <%= render 'layouts/header' %>
 
 <div class="content">
+  <div id="lctv_heading">
+    <%= link_to "LaunchCode TV", "http://tv.launchcode.us" %>
+  </div>
   <%= paginate @youtubes %>
 
   <% @youtubes.each do |vid| %>

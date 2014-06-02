@@ -1,0 +1,27 @@
+<%= render 'layouts/header' %>
+
+<div class="content">
+  <% unless @unread.empty? %>
+    <table id="inbox">
+      <tr>
+        <th>
+          Mark as Read?
+        </th>
+        <th>
+          Content
+        </th>
+      </tr>
+      <% @unread.each do |message| %>
+        <tr>
+          <%= render 'layouts/unread', 
+                locals = { message: message.attributes } %>
+        </tr>
+      <% end %>
+    </table>
+    <button id="mark_read">Mark Read</button>
+  <% else %>
+    No new messages
+  <% end %>
+</div>
+
+<%= render 'layouts/footer' %>

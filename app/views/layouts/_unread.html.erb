@@ -1,0 +1,25 @@
+  <td>
+    <%= check_box_tag message[:name], 'yes', false, class: 'checkbox' %>
+  </td>
+  <td>
+    <div class="message_right">
+      <div class="subject_line">
+        <%= message[:subject] %>
+      </div>
+      <div class="from_line">
+        from <%= link_to message[:author], 
+                 "http://www.reddit.com/u/#{message[:author]}" %> 
+        sent <%= time_ago_in_words(Time.at(message[:created_utc])) %>
+      </div>
+      <div class="message_body">
+        <%= markdown(message[:body]).html_safe %>
+      </div>
+      <% if message[:context].empty? %>
+        <%= link_to "Respond", reddit_pm_path, class: "respond" %>
+      <% else %>
+        <%= link_to "Go to Thread", reddit_post_path(message[:parent_id]),  
+            class: "context_link" %>
+      <% end %>
+    </div>
+    <div class="clear"></div>
+  </td>

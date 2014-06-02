@@ -15,6 +15,7 @@
   <ul>
     <% @tweets.each do |tweet| %>
       <%= render 'layouts/tweet', locals = { tweet: tweet } %>
+      <div class="separator"></div>
     <% end %>
   <ul>
 
@@ -22,5 +23,3 @@
 </div>
 
 <%= render 'layouts/footer' %>
-<%= javascript_include_tag "widgets" %>
-<%= javascript_include_tag "follow_button" %>

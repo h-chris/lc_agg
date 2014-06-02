@@ -1,0 +1,14 @@
+<div class="set">
+  <%= check_box_tag "pset#{pset['number']}", 'yes', false, 
+                    class: 'pset_options' %>
+  <%= "pset#{pset['number']}" %>
+  <br/>
+  <div class="terms">
+    <% pset['terms'].each do |term| %>
+      <%= check_box_tag term, 'yes', false, 
+                        class: 'pset_options' %>
+      <%= term %>
+      <br/>
+    <% end %>
+  </div>
+</div>

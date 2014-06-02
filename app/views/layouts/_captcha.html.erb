@@ -1,0 +1,5 @@
+<%= hidden_field_tag :captcha_id %>
+<img id= "captcha_img" src="" alt="" />
+<button id="refresh_captcha"><%= image_tag 'refresh.png' %></button>
+<br/>
+<%= text_field_tag :captcha_value, nil, placeholder: "captcha" %><br/>

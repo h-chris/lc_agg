@@ -1,0 +1,16 @@
+<div id="r_menu" style="display: none">
+  <ul>
+    <li><%= link_to "Newest Posts", reddit_path %></li>
+    <li><%= link_to "Search", reddit_search_path %></li>
+    <li><%= link_to "Search by Problem Set", 
+                    reddit_search_path(pset: true) %></li>
+    <% if current_user %>
+    <li class="separator"></li>
+    <li><%= link_to "Submit New Link", reddit_link_path %></li>
+    <li><%= link_to "Send Private Message", reddit_pm_path %></li>
+    <li><%= link_to "View Unread Messages", unread_path %></li>
+    <li class="separator"></li>
+    <li class="logout"><%= link_to "Log Out", reddit_logout_path %></li>
+    <% end %>
+  </ul>
+</div>

@@ -23,4 +23,11 @@ module ParseUtils
     return result
   end
 
+  # found at http://www.shanison.com/2011/05/20/ruby-validate-json
+  def valid_json? json
+    JSON.parse(json)
+    return true
+  rescue JSON::ParserError
+      return false
+  end
 end

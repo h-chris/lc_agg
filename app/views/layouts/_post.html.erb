@@ -33,7 +33,7 @@
       <li>
         <%= link_to "<span id=\"#{post.name}\"></span>".html_safe + 
               "<span class=\"num_comments\">Comments</span>".html_safe, 
-              reddit_post_path(post) %> 
+              reddit_post_path(post.name) %> 
       </li>
       <li> | </li>
       <li>
@@ -43,5 +43,3 @@
     </ul>
   </div>
 </div>
-
-<div class="separator"></div>
