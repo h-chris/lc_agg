@@ -19,6 +19,3 @@ doc/
 .idea
 .secret
 config/twitter_vars.rb
-log.txt
-structure
-lctv.json

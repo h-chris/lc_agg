@@ -128,6 +128,24 @@ function ready()
       $("#r_menu").hide();
     });
   });
+
+  $(".tweet").mouseenter(function(){
+    $(this).prev().css({
+      "border-bottom":"1px solid #0084b4"
+    });
+    $(this).css({
+      "border-bottom":"1px solid #0084b4"
+    });
+  });
+
+  $(".tweet").mouseleave(function(){
+    $(this).prev().css({
+      "border-bottom":"1px solid #d0d0d0"
+    });
+    $(this).css({
+      "border-bottom":"1px solid #d0d0d0"
+    });
+  });
 }
 
 function get_num_comments()

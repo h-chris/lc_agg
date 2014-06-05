@@ -1,0 +1,19 @@
+<%= render 'layouts/header' %>
+
+<div class="content">
+  <% @latest.each do |item| %>
+    <% if item.class.to_s == "RedditPost" %>
+      <%= render 'layouts/post', locals = { post: item } %>
+    <% elsif item.class.to_s == "Tweet" %>
+      <%= render 'layouts/tweet', locals = { tweet: item } %>
+    <% else %>
+      <div class="yt_title">
+        <%= item.title %>
+      </div>
+      <%= render 'layouts/youtube', locals = { embed: item.embed_id } %>
+    <% end %>
+    <div class="separator"></div>
+  <% end %>
+</div>
+
+<%= render 'layouts/footer' %>

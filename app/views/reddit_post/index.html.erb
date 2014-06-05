@@ -3,6 +3,7 @@
 <div class="content">
   <div id="reddit_heading">
     <%= link_to "/r/LaunchCodeCS50x", "http://reddit.com/r/LaunchCodeCS50x" %>
+    <div class="separator"></div>
   </div>
   <%= paginate @reddits %>
   <span id="after" class="<%= @after ? @after : "null" %>"></span>

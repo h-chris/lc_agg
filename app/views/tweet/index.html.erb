@@ -1,7 +1,6 @@
 <%= render 'layouts/header' %>
 
 <div class="content">
-  <%= paginate @tweets %>
 
   <div id="tweet_heading">
     <span id="bird">
@@ -9,13 +8,16 @@
             "https://twitter.com" %>
     </span>
     <%= link_to "@LaunchCodeSTL", "https://twitter.com/LaunchCodeSTL" %>
+    <div class="separator"></div>
   </div>
+
+  <%= paginate @tweets %>
+
   <div class="clear" />
 
   <ul>
     <% @tweets.each do |tweet| %>
       <%= render 'layouts/tweet', locals = { tweet: tweet } %>
-      <div class="separator"></div>
     <% end %>
   <ul>
 

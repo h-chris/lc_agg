@@ -1,19 +1,47 @@
 <%= render 'layouts/header' %>
 
 <div class="content">
-  <% @latest.each do |item| %>
-    <% if item.class.to_s == "RedditPost" %>
-      <%= render 'layouts/post', locals = { post: item } %>
-    <% elsif item.class.to_s == "Tweet" %>
-      <%= render 'layouts/tweet', locals = { tweet: item } %>
-    <% else %>
-      <div class="yt_title">
-        <%= item.title %>
-      </div>
-      <%= render 'layouts/youtube', locals = { embed: item.embed_id } %>
-    <% end %>
+  <div class="home_heading">
+    <h1>About</h1>
     <div class="separator"></div>
-  <% end %>
+  </div>
+  <div class="home_content">
+    <p>
+      <%= link_to "CS50x", 
+      'https://www.edx.org/course/harvardx/harvardx-cs50x-introduction-computer-1022' %> 
+      through <%= link_to "edX", "http://www.edx.org" %> is a fantastic course 
+      for learning programming. It was one of the most frustrating and 
+      satisfying experiences of my life.  I found that when I had questions 
+      about any given topic, I would need to search various sites trying to 
+      find help.
+    </p>
+    <p>
+      This site is an attempt to compile all the resources that I found 
+      essential to keeping up with LaunchCode communications and completing 
+      <%= link_to "CS50x", 
+        'https://www.edx.org/course/harvardx/harvardx-cs50x-introduction-computer-1022' %>.  
+      You can freely browse the content of this site without the need to log in.
+      There is, however, functionality that is only available after 
+      authentication.
+    </p>
+    <p>
+      The main resource for success is the 
+      <%= link_to "LaunchCodeCS50x", "http://reddit.com/r/LaunchCodeCS50x" %>
+      subreddit. You can view problems that other members of the community have
+      had with various aspects of the course or post problems of your own.
+    </p>
+    <p>
+      Second, <%= link_to "LaunchCode TV", 'http://tv.launchcode.us' %> is a
+      collection of video tutorials and lectures covering not only the subjects 
+      of CS50, but also some more advanced topics for once the course is 
+      finished.
+    </p>
+    <p>
+      Finally, the <%= link_to "@LaunchCodeSTL", 
+            'http://www.twitter.com/LaunchCodeSTL' %> Twitter feed is included 
+      for announcements about upcoming LaunchCode events.
+    </p>
+  </div>
 </div>
 
 <%= render 'layouts/footer' %>

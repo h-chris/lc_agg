@@ -6,6 +6,8 @@ LcAgg::Application.routes.draw do
   match '/twitter',       to: 'tweet#index',       via: 'get'
   match '/about',         to: 'pages#about',       via: 'get'
 
+  match '/latest',        to: 'pages#latest',      via: 'get',
+                          as: 'latest'
   match '/reddit',        to: 'reddit_post#index',    via: 'get'
   match '/reddit/:name',  to: 'reddit_post#show',     via: 'get', 
                           as: 'reddit_post'

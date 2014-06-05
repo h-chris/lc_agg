@@ -19,9 +19,9 @@ $twitter_inactive:    #ddd;
 $twitter_active:      #999;
 
 /*** dimension vars ***/ 
-$logo_height:         100px;
+$logo_height:         105px;
 $logo_width:          300px;
-$footer_height:       125px;
+$footer_height:       150px;
 $content_width:       60%;
 $content_min_width:   600px;
 $content_margin_top:  $logo_height + 10px;
@@ -105,7 +105,7 @@ nav {
 
 #r_menu {
   position: absolute;
-  top: 100px;
+  top: $logo_height;
   left: 367px;
   width: 200px;
   text-align: left;
@@ -143,7 +143,7 @@ nav {
   font-size: 30px;
 }
 #nav-reddit {
-  padding-bottom: 5px;
+  padding-bottom: 10px;
 }
 /*** Body CSS ***/
 
@@ -151,6 +151,7 @@ body {
   margin: 0 0 $footer_height;
   height: 100%;
   background: $body_background;
+  font-family: helvetica, arial, sans-serif
 
   textarea {
     width: 500px;
@@ -200,6 +201,31 @@ body {
   }
 }
 
+/*** Center Headings and Titles ***/
+.home_heading, .home_content, #mark_read, .pagination, .yt_video, .yt_title, 
+#tweet_heading, #reddit_heading, #lctv_heading, #search_wrapper, 
+#restrict_option, #lc_title, #cs50_title, #useful_title {
+  text-align: center;
+}
+
+.home_heading {
+  font-size: 20px;
+}
+
+.home_content {
+  font-size: 18px;
+
+  a {
+    color: $content_color;
+    font-weight: bold;
+  }
+
+  p {
+    text-align: left;
+    margin-bottom: 25px;
+  }
+}
+
 /*** Inbox CSS ***/
 table {
   border-spacing: 0;
@@ -229,14 +255,12 @@ table {
 
 #mark_read {
   margin: 10px auto;
-  text-align: center;
 }
 
 .pagination {
   padding: 10px;
   width: $content_width;
   margin: auto;
-  text-align: center;
 
   a {
     color: $content_color;
@@ -256,14 +280,9 @@ table {
 .terms {
 }
 
-.yt_video {
-  margin: auto;
-  text-align: center;
-}
-
 .separator {
   border: 1px solid $separator_color;
-  margin-bottom: 15px;
+  margin: 15px auto;
 }
 
 .clear {
@@ -283,7 +302,6 @@ table {
 /*** reddit CSS ***/
 
 #reddit_heading, #lctv_heading {
-  text-align: center;
   a {
     color: $content_color;
   }
@@ -396,7 +414,6 @@ table {
 }
 
 #search_wrapper {
-  text-align: center;
   margin-bottom: 10px;
 }
 
@@ -407,7 +424,6 @@ table {
 }
 
 #restrict_option {
-  text-align: center;
   margin-bottom: 5px;
 }
 
@@ -440,7 +456,8 @@ table {
 .tweet {
   width: $twitter_width;
   padding: 5px 5px;
-  margin: auto;
+  margin: 0 auto;
+  border-bottom: 1px solid $separator_color;
   color: $twitter_active;
 
   .rt_line {
@@ -553,13 +570,14 @@ table {
 .yt_title {
   width: 550px;
   margin: 15px auto 10px;
-  text-align: center;
   font-weight: bold;
   font-size: 25px;
 }
 
 .yt_video {
+  margin: auto;
 }
+
 
 /*** Footer CSS ***/
 
@@ -577,7 +595,7 @@ footer {
 }
 
 #footer_wrapper {
-  width: $content_width;
+  width: 650px;
   margin: auto;
 }
 
@@ -589,19 +607,18 @@ footer {
   margin: 0 5px;
 }
 
-#lc_links, #cs50_links {
+#lc_links, #cs50_links, #useful_links {
   padding: 0 5px;
   float: left;
 }
 
-#lc_title, #cs50_title {
+#lc_title, #cs50_title, #useful_title {
   margin-bottom: 5px;
-  text-align: center;
   text-decoration: underline;
   font-weight: bold;
 }
 
-footer a, #lc_title, #cs50_title {
+footer a, #lc_title, #cs50_title, #useful_title {
   color: $nav_color_inactive;
   text-shadow: 1px 2px black;
 }
