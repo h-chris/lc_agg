@@ -73,9 +73,9 @@ $(window).load(function(){
     var query = "";
     $(".pset_options").each(function(){
       if ($(this).prop("checked"))
-        query += $(this).attr('id') + " ";
+        query += $(this).attr('name') + " ";
     });
-    options['query'] = query;
+    options['query'] = query.trim();
     options['restrict'] = $("#restrict_sr").prop("checked");
     search_reddit(options);
   });
@@ -92,7 +92,8 @@ function ready()
   {
     var action = $('body').data('action');
 
-    if (action == "index")
+    if (action == "index" || 
+        action == "latest")
     {
       get_num_comments();
     }
@@ -103,7 +104,7 @@ function ready()
     else if (action == "new_link" ||
              action == "pm")
     {
-      get_new_captcha()
+      get_new_captcha();
     }
   }
   // Twitter
@@ -154,8 +155,7 @@ function get_num_comments()
   var per_page = 10;
 
   // parameters to pass to scraper
-  var url_options = "?limit=" + per_page + 
-                    "&after=" + $("#after").attr('class'); 
+  var url_options = "?limit=" + per_page; 
 
   // combined url
   var fullurl  = reddit_url + subreddit + "new/" + ext + url_options;
@@ -352,27 +352,28 @@ function search_reddit(options)
   if (options['restrict'])
     fullurl += "restrict_sr=true&";
 
-  var query = "q=";
-  $.each(options['query'].split(' '), function(i, value){
-    if (i == 0)
-      query += value;
-    else
-      query += "+" + value;
-  });
+  var query = "q=" + options['query'].replace(/\ /g, '+');
 
   // 2 additional characters are needed to account for q=
   if (query.length > 2 && query.length <= 514)
   {
     fullurl += query;
+    console.log(fullurl);
     $.getJSON(fullurl, function(json){
       var results = json.data.children;
       var html = "";
 
-      if (results)
+      if (results != "")
       {
         $.each(results, function(i, value){
           html += format_result(value.data);
         });
+      }
+      else
+      {
+        html += "<span style=\"text-align:center;\">"
+        html += "<h2>No Results Found.</h2>"
+        html += "</span>";
       }
       
       $("#results").html(html).text();
@@ -403,6 +404,8 @@ function format_result(result)
     output += "<div class=\"post_content\">"; 
     output += $("<span/>").html(result.selftext_html).text() + "</div><br/>";
   }
+
+  output += "<div class=\"separator\"></div>";
   return output;
 }
 

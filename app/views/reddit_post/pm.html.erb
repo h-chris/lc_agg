@@ -1,24 +1,30 @@
 <%= render 'layouts/header' %>
 
 <div class="content">
+  <div id="pm_heading">
+    Private Message
+  </div>
+  <div class="separator"></div>
   <%= form_tag send_reddit_pm_path do %>
-    <%= label_tag 'Recipient:' %><br/>
-    <%= text_field_tag :recipient, "#{@author}" %><br/>
-    <br/>
+    <div id="pm">
+      <%= label_tag 'Recipient:' %><br/>
+      <%= text_field_tag :recipient, "#{@author}" %><br/>
+      <br/>
 
-    <%= label_tag 'Subject: (Optional)' %><br/>
-    <%= text_field_tag :subject, "#{@subject}", 
-        maxlength: 100 %><br/>
-    <br/>
+      <%= label_tag 'Subject: (Optional)' %><br/>
+      <%= text_field_tag :subject, "#{@subject}", 
+          maxlength: 100 %><br/>
+      <br/>
 
-    <%= label_tag 'Message:' %><br/>
-    <%= text_area_tag :message, nil %><br/>
-    <br/>
+      <%= label_tag 'Message:' %><br/>
+      <%= text_area_tag :message, nil %><br/>
+      <br/>
 
-    <% if @captcha %>
-      <%= render 'layouts/captcha' %>
-    <% end %>
-    <%= submit_tag "Send Message" %>
+      <% if @captcha %>
+        <%= render 'layouts/captcha' %>
+      <% end %>
+      <%= submit_tag "Send Message" %>
+    </div>
   <% end %>
 </div>
 

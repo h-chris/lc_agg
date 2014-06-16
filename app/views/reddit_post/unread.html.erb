@@ -1,6 +1,10 @@
 <%= render 'layouts/header' %>
 
 <div class="content">
+  <div id="unread_heading">
+    Unread Messages
+  </div>
+  <div class="separator"></div>
   <% unless @unread.empty? %>
     <table id="inbox">
       <tr>
@@ -18,7 +22,9 @@
         </tr>
       <% end %>
     </table>
-    <button id="mark_read">Mark Read</button>
+    <div id="button_wrapper">
+      <button id="mark_read">Mark Read</button>
+    </div>
   <% else %>
     No new messages
   <% end %>

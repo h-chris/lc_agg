@@ -1,9 +1,14 @@
 <%= render 'layouts/header' %>
 
 <div class="content">
+  <div class="home_heading">
+    Latest Entries
+  </div>
+  <div class="separator"></div>
   <% @latest.each do |item| %>
     <% if item.class.to_s == "RedditPost" %>
       <%= render 'layouts/post', locals = { post: item } %>
+      <div class="separator"></div>
     <% elsif item.class.to_s == "Tweet" %>
       <%= render 'layouts/tweet', locals = { tweet: item } %>
     <% else %>
@@ -11,8 +16,8 @@
         <%= item.title %>
       </div>
       <%= render 'layouts/youtube', locals = { embed: item.embed_id } %>
+      <div class="separator"></div>
     <% end %>
-    <div class="separator"></div>
   <% end %>
 </div>
 

@@ -24,6 +24,7 @@ $logo_width:          300px;
 $footer_height:       150px;
 $content_width:       60%;
 $content_min_width:   600px;
+$content_min_height:  350px;
 $content_margin_top:  $logo_height + 10px;
 $content_padding:     30px;
 
@@ -153,37 +154,41 @@ body {
   background: $body_background;
   font-family: helvetica, arial, sans-serif
 
-  textarea {
-    width: 500px;
-    height: 100px;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style-type: none;
+}
+
+input {
+  margin: 5px auto 0;
+}
+
+textarea {
+  margin-top: 5px;
+  width: 500px;
+  height: 100px;
+}
+
+#login_form {
+  width: 95%;
+  min-width: $content_min_width - 10px;
+
+  h2 {
+    color: $content_color;
+    text-align: center;
+    font-size: 30px;
   }
 
-  a {
-    text-decoration: none;
-  }
-
-  li {
-    list-style-type: none;
-  }
-
-  form {
-
-    #login_form {
-      width: 95%;
-      min-width: $content_min_width - 10px;
-      margin: auto;
-
-      h2 {
-        color: $content_color;
-      }
-
-      input {
-        margin: 5px auto;
-        padding: 3px;
-        height: 35px;
-        font-size: 25px;
-      }
-    }
+  input {
+    margin: 5px auto;
+    padding: 3px;
+    height: 35px;
+    font-size: 20px;
   }
 }
 
@@ -194,6 +199,7 @@ body {
   color: $content_color;
   width: $content_width;
   min-width: $content_min_width;
+  min-height: $content_min_height;
   box-shadow: 2px 2px 5px $content_shadow;
 
   ul {
@@ -204,12 +210,9 @@ body {
 /*** Center Headings and Titles ***/
 .home_heading, .home_content, #mark_read, .pagination, .yt_video, .yt_title, 
 #tweet_heading, #reddit_heading, #lctv_heading, #search_wrapper, 
-#restrict_option, #lc_title, #cs50_title, #useful_title {
+#restrict_option, #lc_title, #cs50_title, #useful_title, #unread_heading,
+#new_link_heading, #search_heading, #pm_heading {
   text-align: center;
-}
-
-.home_heading {
-  font-size: 20px;
 }
 
 .home_content {
@@ -232,8 +235,12 @@ table {
   border-collapse: collapse;
 }
 
-#inbox td {
-  border: 1px solid $content_color;
+#inbox {
+  margin: auto;
+
+  td {
+    border: 1px solid $content_color;
+  }
 }
 
 .checkbox {
@@ -255,6 +262,11 @@ table {
 
 #mark_read {
   margin: 10px auto;
+}
+
+#button_wrapper {
+  width: 100%;
+  text-align: center;
 }
 
 .pagination {
@@ -307,7 +319,15 @@ table {
   }
 }
 
+#unread_heading, #new_link_heading, #search_heading, #pm_heading, 
+.home_heading {
+  margin: 10px auto;
+  width: 100%;
+  font-size: 56px;
+}
+
 .post {
+  margin-top: 5px;
   margin-bottom: 8px;
 
   .pm_author {
@@ -414,17 +434,21 @@ table {
 }
 
 #search_wrapper {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 #options_wrapper {
-  margin-bottom: 10px;
-  width: 100%;
-  min-width: $content_min_width - 10px;
+  margin: 10px auto;
+  width: 600px;
 }
 
 #restrict_option {
   margin-bottom: 5px;
+}
+
+#results {
+  width: 600px;
+  margin: auto;
 }
 
 #captcha_img {
@@ -435,6 +459,12 @@ table {
  margin: $refresh_img_margin 5px;
  padding: 6px;
  background: $content_background;
+}
+
+#new_link, #pm {
+  label {
+    font-size: 20px;
+  }
 }
 
 /*** Twitter CSS ***/

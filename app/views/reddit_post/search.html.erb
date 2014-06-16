@@ -1,6 +1,10 @@
 <%= render 'layouts/header' %>
 
 <div class="content search_content">
+  <div id="search_heading">
+    Search reddit
+  </div>
+  <div class="separator"></div>
   <div id="restrict_option">
     <%= check_box_tag "restrict_sr", 'yes', true %>
     Restrict search to /r/LaunchCodeCS50x?
